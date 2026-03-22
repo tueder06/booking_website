@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ro">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="../images/discover.png" type="image/png">
+    <title>Discover</title>
+</head>
+<body bgcolor="lightgray">
+    <div>
+        <div>
+            <table width="100%" border="0" cellpadding="5"> 
+                 <tr>
+                    <td align="left" valign="middle">
+                    <img src="../images/suitcase.png" alt="Booking logo" height="40">
+                    </td>
+                    <td align="right" valign="middle">
+                    <a href="pages/login.html">Log in</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <ul>
+                <li><a href="index4.html" target="_self">Home</a></li>
+                <li><a href="discover4.html" target="_self">Discover</a></li>
+                <li><a href="profile4.html" target="_self">Profile</a></li>
+                <li><a href="contact4.html" target="_blank">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <hr>
+        <center>
+            <h1>Discover new destinations</h1>
+            <p>Explore the world with us! Find the best travel deals, tips, and guides to make your next trip unforgettable.</p>
+        </center>
+        <h2>Filter your search</h2>
+        <div>
+            <form action="" method="post">
+                <label for="search"><b>Search for destinations:</b></label><br>
+                <input type="text" id="search" name="search" maxlength="30" size="30">
+                <label for="check-in"><b>Check-in date:</b></label>
+                <input type="text" id="check-in" name="check-in">
+                <label for="check-out"><b>Check-out date:</b></label>
+                <input type="text" id="check-out" name="check-out">
+                <input type="submit" value="Search"> <br><br>
+
+
+                <fieldset>
+                    <legend><strong>Price:</strong></legend>
+                    <input type="text" id="price-slider" name="price-slider">
+                    <input type="text" id="price" name="price" value="1000" readonly="readonly">
+                </fieldset>
+                <fieldset>
+                    <legend><strong>Property type:</strong></legend>
+                    <input type="checkbox" id="hotel" name="hotel" checked="checked">
+                    <label for="hotel">Hotels</label><br>
+
+                    <input type="checkbox" id="apartment" name="apartment" checked="checked">
+                    <label for="apartment">Apartments</label><br>
+
+                    <input type="checkbox" id="villa" name="villa" checked="checked">
+                    <label for="villa">Villas</label><br>
+
+                    <input type="checkbox" id="guesthouse" name="guesthouse" checked="checked">
+                    <label for="guesthouse">Guest Houses</label><br>
+
+                    <input type="checkbox" id="chalet" name="chalet" checked="checked">
+                    <label for="chalet">Chalets</label><br>
+
+                    <input type="checkbox" id="mobilehome" name="mobilehome" checked="checked">
+                    <label for="mobilehome">Mobile Homes</label><br>
+
+                    <input type="checkbox" id="hostel" name="hostel" checked="checked">
+                    <label for="hostel">Hostels</label><br>
+
+                    <input type="checkbox" id="camping" name="camping" checked="checked">
+                    <label for="camping">Camping</label><br>
+                </fieldset>
+                <fieldset>
+                    <legend><strong>Meal plan:</strong></legend>
+                    <input type="radio" id="self-catering" name="catering" value="self-catering">
+                    <label for="self-catering">Self Catering</label><br>
+                    <input type="radio" id="breakfast-included" name="catering" value="breakfast-included">
+                    <label for="breakfast-included">Breakfast Included</label><br>
+                </fieldset>
+                <fieldset>
+                    <legend><strong>Rating:</strong></legend>
+                    <input type="checkbox" id="excellent" name="excellent">
+                    <label for="excellent">Excellent: 9+</label><br>
+                    <input type="checkbox" id="very-good" name="very-good">
+                    <label for="very-good">Very Good: 8+</label><br>
+                    <input type="checkbox" id="good" name="good">
+                    <label for="good">Good: 7+</label><br>
+                    <input type="checkbox" id="pleasant" name="pleasant">
+                    <label for="pleasant">Pleasant: 6+</label><br>
+
+                </fieldset>
+                <fieldset>
+                    <legend><strong>Property Stars:</strong></legend>
+                    <select id="property-star" name="property-star">
+                        <option value="0" selected="selected">Any stars</option>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend><strong>Facilities:</strong></legend>
+                    <select id="facilities" name="facilities" size="3" multiple="multiple">
+                        <option value="wifi">Free WiFi</option>
+                        <option value="parking">Parking</option>
+                        <option value="pool">Swimming Pool</option>
+                        <option value="gym">Fitness Center</option>
+                        <option value="spa">Spa</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="bar">Bar</option>
+                        <option value="airport-shuttle">Airport Shuttle</option>
+                    </select>
+                </fieldset>
+            </form>
+            <center>
+            <table border="1" bgcolor="white">
+                <tr>
+                    <td><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/677667170.jpg?k=4a7a26129fe4109a64b4fba9bf75f13e11bff441edd8995184e1eed687804669&amp;o=" 
+                        alt="Interior image" width="200" height="200" title="Representative image of the interior"></td>
+                    <td>
+                        <table border="1">
+                            <tr>
+                                <td colspan="3"><h3>Luxury Evergreen Towers by Glam Apartments</h3></td>
+                            </tr>
+                            <tr>
+                                <th>Rating:</th>
+                                <td colspan="2">Excellent - 9.2</td>
+                            </tr>   
+                            <tr>
+                                <th>Price:</th>
+                                <td colspan="2">240 RON/night</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>Iași, Romania</td>
+                                <td>4,6km from City Center</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Apartment with 1 bedroom</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/762792738.jpg?k=10d7d1a3614016a95902cb8824797cd04e3f8c78136a0ba56a4b23f8ddd4290e&amp;o=" 
+                        alt="Seaside interior" width="200" height="200" title="Seaside interior"></td>
+                    <td>
+                        <table border="1">
+                            <tr>
+                                <td colspan="3"><h3>Seaside Serenity Apartments</h3></td>
+                            </tr>
+                            <tr>
+                                <th>Rating:</th>
+                                <td colspan="2">Very Good - 8.7</td>
+                            </tr>
+                            <tr>
+                                <th>Price:</th>
+                                <td colspan="2">180 RON/night</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>Constanța, Romania</td>
+                                <td>0.8km from Beach</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Apartment with 2 bedrooms</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+    
+                <tr>
+                    <td><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/477203913.jpg?k=70150cc6d1e056b8e5795b7d1ead266542be64731b4cda55b3651c7641104fb6&amp;o=" 
+                        alt="Mountain view" width="200" height="200" title="Mountain view from the property"></td>
+                    <td>
+                        <table border="1">
+                            <tr>
+                                <td colspan="3"><h3>Mountainview Retreat Lodge</h3></td>
+                            </tr>
+                            <tr>
+                                <th>Rating:</th>
+                                <td colspan="2">Excellent - 9.1</td>
+                            </tr>
+                            <tr>
+                                <th>Price:</th>
+                                <td colspan="2">320 RON/night</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>Șirnea, Romania</td>
+                                <td>31.6km from Brașov City Center</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Chalet with 3 bedrooms</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/580894043.jpg?k=0a80931ff19822dade74110385d01ea4e81201699682ec7ce593ed92fcb1aa19&amp;o=" 
+                        alt="City apartment" width="200" height="200" title="Representative image of the interior"></td>
+                    <td>
+                        <table border="1">
+                            <tr>
+                                <td colspan="3"><h3>Central City Suites</h3></td>
+                            </tr>
+                            <tr>
+                                <th>Rating:</th>
+                                <td colspan="2">Very Good - 8.5</td>
+                            </tr>
+                            <tr>
+                                <th>Price:</th>
+                                <td colspan="2">210 RON/night</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>Bucharest, Romania</td>
+                                <td>0.5km from Old Town</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Studio apartment</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+            </center>
+        </div>
+    </div>
+    <div align="center">
+        <hr>
+        <form action="" method="post">
+            <label for="reason"><b>Reason for contacting us:</b></label><br>
+            <select id="reason" name="reason">
+                <option value="booking-issue">Booking Issue</option>
+                <option value="payment-query">Payment Query</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+            </select><br><br>
+            <label for="message"><b>Send a message to us:</b></label><br>
+            <textarea id="message" name="message" rows="5" cols="30"></textarea><br><br>
+
+            <input type="submit" value="Send">
+        </form>
+        <p>&copy; 2026 Booking. All rights reserved.</p>
+        <h4>Follow us on social media:</h4>
+        <ul>
+            <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+            <li><a href="https://www.twitter.com/" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+        </ul>
+        <h4>Contact us:</h4>
+        <address>
+            <p>
+                Booking Office<br>
+                Street Ștefan cel Mare 12<br>
+                700000 Iași, Romania<br>
+                Email: <a href="mailto:booking@booking.com">booking@booking.com</a><br>
+                Phone: +40 123 456 789
+            </p>
+        </address>
+    </div>
+</body>
+</html>

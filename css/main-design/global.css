@@ -1,0 +1,316 @@
+:root {
+    --brand-main: #464a78;
+    --brand-accent: #8fd1a3;
+    --brand-pop: #f5c826;
+    --white: #ffffff;
+    --text-dark: #2a2c48;
+    --bg-light: #f4faf6;
+    --container-width: 100%;
+    --side-padding: 10%;     
+    --section-gap: 4rem;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.menu-checkbox, .side-menu-icon, .menu-icon {
+    display: none;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    width: 100%;
+    padding-left: var(--side-padding);   
+    padding-right: var(--side-padding);
+}
+
+.site-header {
+    background-color: var(--white);
+    border-bottom: 3px solid var(--brand-accent);
+}
+
+.site-header ul {
+    margin: 0;
+    list-style-type: none;
+}
+
+.utility-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 15px var(--side-padding);
+    background-color: var(--brand-main);
+    border-bottom: 3px solid var(--brand-accent);
+}
+
+.logo-text {
+    color: var(--white);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-transform: capitalize; 
+}
+
+.logo-track {
+    flex-grow: 1; 
+    position: relative;
+    height: 40px; 
+}
+
+.animate {
+    position: absolute;
+    transform-origin: bottom center;
+    animation: move-and-balance 2.5s ease-out forwards;
+}
+
+@keyframes move-and-balance {
+    0% {
+        left: 100%; 
+        transform: translateX(-100%) rotate(20deg); 
+        opacity: 0;
+    }
+    60% {
+        left: 0;
+        transform: translateX(0) rotate(20deg);
+        opacity: 1;
+    }
+    75% {
+        transform: translateX(0) rotate(-10deg);
+    }
+    90% {
+        transform: translateX(0) rotate(5deg);
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 1rem var(--side-padding);
+}
+
+.auth-link, .nav-link {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.auth-link {
+    color: var(--white);
+}
+
+.nav-link {
+    color: var(--brand-main);
+}
+
+.nav-link:hover, .auth-link:hover {
+    color: var(--brand-accent);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--brand-accent);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.hero-section {
+    background-color: var(--brand-main);
+    color: var(--white);
+    padding: 5rem 10% 5rem 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-section h1 {
+    color: var(--brand-accent);
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.site-footer {
+    background-color: var(--brand-main);
+    color: var(--white);
+    border-top: 5px solid var(--brand-accent);
+}
+
+.site-footer a {
+    color: var(--brand-accent);
+}
+
+.footer-bottom {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    border-top: 1px solid #d1d5db; 
+    font-size: 0.85rem;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.social-link-item {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.social-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url('../../images/social-media-icons.png');
+    background-repeat: no-repeat;
+    background-size: 141px 105px;
+}
+
+.facebook-icon {
+    background-position: -16px -12px;
+}
+
+.instagram-icon {
+    background-position: -73px -12px; 
+}
+
+.linkedin-icon {
+    background-position: -16px -40.5px; 
+}
+
+.social-link-item:hover {
+    opacity: 0.7;
+}
+
+.subscribe-info {
+    max-width: 400px;
+}
+
+.subscribe-info h2 {
+    color: var(--brand-accent);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.subscribe-info p {
+    color: var(--white);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.newsletter-form label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 0.8em 1.2em;
+    border: 2px solid var(--white);
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-family: inherit;
+    outline: none;
+}
+
+.newsletter-form input[type="email"]:focus {
+    border-color: var(--brand-accent);
+}
+
+.newsletter-form input[type="submit"] {
+    padding: 0.8em 1.5em;
+    background-color: var(--brand-accent);
+    color: var(--brand-main);
+    border: 2px solid var(--brand-accent);
+    border-radius: 0 5px 5px 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newsletter-form input[type="submit"]:hover:not(:disabled) {
+    background-color: var(--brand-pop);
+    border-color: var(--brand-pop);
+}
+
+.newsletter-form input[type="submit"]:disabled {
+    background-color: #666;
+    border-color: #666;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.menu-icon {
+    display: none;
+}

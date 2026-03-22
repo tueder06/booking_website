@@ -1,0 +1,85 @@
+.page-header {
+    margin: var(--section-gap) 0 2rem 0;
+}
+
+.table-container {
+    width: 100%;
+    margin-bottom: var(--section-gap);
+    overflow-x: auto; 
+}
+
+.data-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.data-matrix th, 
+.data-matrix td {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    white-space: nowrap; 
+}
+
+.data-matrix th {
+    background-color: var(--brand-main);
+    color: var(--white);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.data-matrix tbody tr:hover {
+    background-color: var(--bg-light);
+}
+
+.data-matrix td:first-child {
+    font-weight: bold;
+    color: var(--brand-accent);
+    display: flex;
+    align-items: center;
+}
+
+.data-matrix td:last-child {
+    font-weight: bold;
+    color: var(--brand-main);
+    font-size: 1.1rem;
+}
+
+.type-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;  
+    background-image: url('../../images/room-types.png');
+    background-repeat: no-repeat;
+    background-size: 74.8px 49.8px; 
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.icon-single { 
+    background-position: -25.4px -25.4px; 
+}  
+
+.icon-standard { 
+    background-position: -50.3px -25.4px; 
+}  
+
+.icon-deluxe {
+     background-position: -0.4px -25.4px; 
+}    
+
+.icon-family {
+     background-position: -25.4px -0.4px;
+}    
+
+.icon-studio {
+     background-position: -0.4px -0.4px; 
+}      
+
+.icon-penthouse { 
+    background-position: -50.3px -0.4px; 
+}

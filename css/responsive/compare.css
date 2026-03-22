@@ -1,0 +1,189 @@
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem var(--side-padding);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    color: var(--brand-main);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.table-container {
+    width: 100%;
+    margin-bottom: var(--section-gap);
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow-x: auto; 
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.table-container::after {
+    content: "← Scroll horizontally to see more →";
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+    padding: 10px;
+    background: #f8fafc;
+    border-top: 1px solid #eee;
+    position: sticky;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.data-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+}
+
+.data-matrix th, 
+.data-matrix td {
+    padding: 1.2rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    white-space: nowrap; 
+}
+
+.data-matrix th {
+    background-color: var(--brand-main);
+    color: var(--white);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.data-matrix tbody tr:hover {
+    background-color: var(--bg-light);
+}
+
+.data-matrix th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.data-matrix td:first-child {
+    font-weight: bold;
+    color: var(--brand-accent);
+    background-color: #f8fafc;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.data-matrix td:last-child {
+    font-weight: bold;
+    color: var(--brand-main);
+    font-size: 1.1rem;
+}
+
+.type-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;  
+    background-image: url('../../images/room-types.png');
+    background-repeat: no-repeat;
+    background-size: 74.8px 49.8px; 
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.icon-single { background-position: -25.4px -25.4px; }  
+.icon-standard { background-position: -50.3px -25.4px; }  
+.icon-deluxe { background-position: -0.4px -25.4px; }    
+.icon-family { background-position: -25.4px -0.4px; }    
+.icon-studio { background-position: -0.4px -0.4px; }      
+.icon-penthouse { background-position: -50.3px -0.4px; }
+
+@media (max-width: 1024px) {
+    main {
+        margin-left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        padding: 2rem 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 1.5rem 5%;
+    }
+}
+
+@media (max-width: 768px) or (max-width: 1024px) {
+    .data-matrix thead, 
+    .table-container::after {
+        display: none;
+    }
+
+    .data-matrix, .data-matrix tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .data-matrix tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        margin-bottom: 2rem;
+        border: 1px solid var(--brand-accent);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--white);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .data-matrix td {
+        padding: 0.8rem !important;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+    }
+
+    .data-matrix td:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: bold;
+        color: var(--brand-main);
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        margin-bottom: 4px;
+    }
+
+    .data-matrix td:first-child,
+    .data-matrix td:last-child {
+        grid-column: span 2;
+        text-align: center;
+    }
+
+    .data-matrix td:first-child {
+        background-color: var(--brand-main);
+        color: var(--brand-pop) !important;
+        font-size: 1.1rem;
+        border-bottom: 2px solid var(--brand-pop);
+    }
+
+    .data-matrix td:last-child {
+        background-color: #f8fafc;
+        color: var(--brand-pop) !important;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-bottom: none;
+    }
+
+    .data-matrix td:nth-child(even):not(:last-child) {
+        border-right: 1px solid #eee;
+    }
+}

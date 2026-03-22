@@ -1,0 +1,280 @@
+.dashboard-layout {
+    padding: var(--section-gap) var(--side-padding);
+    max-width: 1200px;
+    margin: var(--section-gap) auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: stretch;
+}
+
+.stat-card {
+    background-color: var(--brand-main);
+    color: var(--white);
+    border: none;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.stat-value {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--brand-pop); 
+    margin: 10px 0;
+}
+
+.stat-link {
+    display: block;
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--brand-pop);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.stat-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.dashboard-trips-section {
+    margin-bottom: var(--section-gap);
+}
+
+.dashboard-trips-section h2 {
+    color: var(--brand-main);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--brand-accent);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.trip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.trip-card {
+    display: flex;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.trip-image {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.trip-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trip-details {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.trip-header h3 {
+    margin: 0;
+    color: var(--brand-main);
+    font-size: 1.3rem;
+}
+
+.trip-location {
+    color: #666;
+    margin: 4px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.status-badge {
+    background-color: var(--brand-accent);
+    color: var(--brand-main);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.trip-dates {
+    display: flex;
+    gap: 2rem;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.date-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-label {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.date-value {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--brand-main);
+}
+
+.trip-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #ccc;
+    color: #666;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.btn-primary {
+    background: var(--brand-pop);
+    color: var(--brand-main);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.profile-content {
+    margin-bottom: 2rem;
+}
+
+.profile-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    place-items: stretch;
+}
+
+.dashboard-card {
+    background: var(--brand-main);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    clear: both; 
+    overflow: hidden;
+}
+
+.dashboard-card legend {
+    float: left;
+    width: var(--container-width);
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-card legend h2 {
+    color: var(--brand-pop);
+    font-size: 1.5rem;
+    margin: 0;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-card label {
+    display: block;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    opacity: 0.9;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: var(--container-width);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.btn-icon img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    opacity: 0.7;
+}
+
+.btn-icon:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.input-row input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-dark);
+    font-size: 1rem;
+}

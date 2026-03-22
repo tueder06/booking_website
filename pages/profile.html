@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/suitcase.png" type="image/png">
+    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
+    <link rel="stylesheet" href="../css/main-design/profile.css"> -->
+    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
+    <link rel="stylesheet" href="../css/ocean-theme/profile.css"> -->
+    <link rel="stylesheet" href="../css/responsive/global.css">
+    <link rel="stylesheet" href="../css/responsive/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+    <label for="menu-toggle" class="side-menu-icon">☰</label>
+    <header class="site-header">
+        <div class="header-top">
+            <ul class="utility-nav">
+                <li class="logo-text">Booking</li>
+                <li class="logo-track">
+                    <img src="../images/suitcase.png" class="animate" alt="Booking logo" height="40">
+                </li>
+                <li><a href="login.html" class="auth-link">Log in</a></li>
+                <li><a href="sign-up.html" class="auth-link">Sign in</a></li>
+            </ul>
+        </div>
+        <nav class="header-bottom">
+            <ul class="main-nav">
+                <li><a class="nav-link" href="../index.html"><span class="menu-icon home-icon"></span>Home</a></li>
+                <li><a class="nav-link" href="discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
+                <li><a class="nav-link" href="profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
+                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="dashboard-layout container">
+        <section class="profile-content">
+            <form class="profile-form">
+                
+                <fieldset class="dashboard-card">
+                    <legend><h2>Account Information</h2></legend>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <div class="input-row">
+                            <input type="email" id="email" name="email" value="teodortim@gmail.com" readonly>
+                            <button type="button" class="btn-icon" title="Edit Email"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <div class="input-row">
+                            <input type="password" id="password" name="password" value="****************" readonly>
+                            <button type="button" class="btn-icon" title="Edit Password"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="dashboard-card">
+                    <legend><h2>Personal Information</h2></legend>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstname">First Name:</label>
+                            <div class="input-row">
+                                <input type="text" id="firstname" name="firstname" value="Teodor" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname">Last Name:</label>
+                            <div class="input-row">
+                                <input type="text" id="lastname" name="lastname" value="Timofte" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthdate">Birthdate:</label>
+                            <div class="input-row">
+                                <input type="date" id="birthdate" name="birthdate" value="2000-01-01" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <div class="input-row">
+                                <input type="tel" id="phone" name="phone" value="+40742145621" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country:</label>
+                            <div class="input-row">
+                                <input type="text" id="country" name="country" value="Romania" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <div class="input-row">
+                                <input type="text" id="city" name="city" value="Cluj-Napoca" readonly>
+                                <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </form>
+        </section>
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Total Bookings</h3>
+                <p class="stat-value">14</p>
+                <a href="" class="stat-link">View Details &rarr;</a>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Upcoming Trips</h3>
+                <p class="stat-value">2</p>
+            </div>
+            
+            <div class="stat-card accent">
+                <h3>Loyalty Points</h3>
+                <p class="stat-value">3,450</p>
+            </div>
+        </section>
+
+        <section id="upcoming-trips" class="dashboard-trips-section">
+            <h2>Your Next Adventures</h2>
+            
+            <div class="trip-list">
+                <article class="trip-card">
+                    <div class="trip-image">
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/762792738.jpg?k=10d7d1a3614016a95902cb8824797cd04e3f8c78136a0ba56a4b23f8ddd4290e&o=" alt="Constanta Apartment">
+                    </div>
+                    <div class="trip-details">
+                        <div class="trip-header">
+                            <div>
+                                <h3>Seaside Serenity Apartments</h3>
+                                <p class="trip-location">Constanța, Romania</p>
+                            </div>
+                            <span class="status-badge">Confirmed</span>
+                        </div>
+                        
+                        <div class="trip-dates">
+                            <div class="date-box">
+                                <span class="date-label">Check-in</span>
+                                <span class="date-value">15 Jul 2026</span>
+                            </div>
+                            <div class="date-box">
+                                <span class="date-label">Check-out</span>
+                                <span class="date-value">22 Jul 2026</span>
+                            </div>
+                            <div class="date-box">
+                                <span class="date-label">Booking Ref</span>
+                                <span class="date-value">#BK-789012</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trip-actions">
+                            <button class="btn-outline">Cancel Booking</button>
+                            <button class="btn-primary">Manage Trip</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="trip-card">
+                    <div class="trip-image">
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/477203913.jpg?k=70150cc6d1e056b8e5795b7d1ead266542be64731b4cda55b3651c7641104fb6&o=" alt="Mountain Lodge">
+                    </div>
+                    <div class="trip-details">
+                        <div class="trip-header">
+                            <div>
+                                <h3>Mountainview Retreat Lodge</h3>
+                                <p class="trip-location">Șirnea, Romania</p>
+                            </div>
+                            <span class="status-badge">Confirmed</span>
+                        </div>
+                        
+                        <div class="trip-dates">
+                            <div class="date-box">
+                                <span class="date-label">Check-in</span>
+                                <span class="date-value">10 Oct 2026</span>
+                            </div>
+                            <div class="date-box">
+                                <span class="date-label">Check-out</span>
+                                <span class="date-value">14 Oct 2026</span>
+                            </div>
+                            <div class="date-box">
+                                <span class="date-label">Booking Ref</span>
+                                <span class="date-value">#BK-992341</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trip-actions">
+                            <button class="btn-outline">Cancel Booking</button>
+                            <button class="btn-primary">Manage Trip</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="contact-info">
+                <h3>Contact us:</h3>
+                <address class="contact-address">
+                    <p>
+                        Booking Office<br>
+                        Street Ștefan cel Mare 12<br>
+                        700000 Iași, Romania<br>
+                        Email: <a href="mailto:booking@booking.com"><strong>booking@booking.com</strong></a><br>
+                        Phone: <strong>+40 123 456 789</strong>
+                    </p>
+                </address>
+            </div>
+            <div class="social-info"> 
+                <h3>Follow us on social media:</h3>
+                <ul class="social-links">
+                    <li><a href="https://www.facebook.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon facebook-icon"></span>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon linkedin-icon"></span>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li><a href="https://www.instagram.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon instagram-icon"></span>
+                            Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="subscribe-info">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for exclusive deals and travel tips.</p>
+                <form method="post" class="newsletter-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="submit" value="Subscribe" disabled>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Booking. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

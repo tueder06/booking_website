@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/login.png" type="image/png">
+    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
+    <link rel="stylesheet" href="../css/main-design/auth.css"> -->
+    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
+    <link rel="stylesheet" href="../css/ocean-theme/auth.css"> -->
+    <link rel="stylesheet" href="../css/responsive/global.css">
+    <link rel="stylesheet" href="../css/responsive/auth.css">
+    <title>Sign Up - Booking</title>
+</head>
+<body class="auth-page">
+    
+    <div class="auth-card signup-card">
+        <h1>Create an Account</h1>
+        <p class="subtitle">Join us and start booking your dream vacations</p>
+
+        <form action="login.html">
+            <fieldset class="auth-fieldset">
+                <legend>Account Information</legend>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Create password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="auth-fieldset">
+                <legend>Personal Information</legend>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Doe" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birthdate">Birthdate:</label>
+                        <input type="date" id="birthdate" name="birthdate">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+40 700 000 000">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <input type="text" id="country" name="country" placeholder="Romania">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" placeholder="Bucharest">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Travel Preferences:</label>
+                    <textarea id="bio" name="bio" rows="3" placeholder="Tell us about your favorite travel destinations..."></textarea>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-block">Sign Up</button>
+        </form>
+        
+        <p class="auth-link">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+
+</body>
+</html>

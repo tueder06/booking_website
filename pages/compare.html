@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/suitcase.png" type="image/png">
+    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
+    <link rel="stylesheet" href="../css/main-design/compare.css"> -->
+    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
+    <link rel="stylesheet" href="../css/ocean-theme/compare.css"> -->
+    <link rel="stylesheet" href="../css/responsive/global.css">
+    <link rel="stylesheet" href="../css/responsive/compare.css">
+    <title>Compare Rooms - Booking</title>
+</head>
+<body class="dashboard-layout">
+    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+    <label for="menu-toggle" class="side-menu-icon">☰</label>
+    <header class="site-header">
+        <div class="header-top">
+            <ul class="utility-nav">
+                <li class="logo-text">Booking</li>
+                <li class="logo-track">
+                    <img src="../images/suitcase.png" class="animate" alt="Booking logo" height="40">
+                </li>
+                <li><a href="login.html" class="auth-link">Log in</a></li>
+                <li><a href="sign-up.html" class="auth-link">Sign in</a></li>
+            </ul>
+        </div>
+        <nav class="header-bottom">
+            <ul class="main-nav">
+                <li><a class="nav-link" href="../index.html"><span class="menu-icon home-icon"></span>Home</a></li>
+                <li><a class="nav-link" href="discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
+                <li><a class="nav-link" href="profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
+                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Room Benefits Comparison</h1>
+            <p>Compare facilities, capacities, and pricing to find your perfect stay.</p>
+        </div>
+
+        <section class="table-container">
+            <table class="data-matrix">
+                <thead>
+                    <tr>
+                        <th>Accom. Type</th>
+                        <th>Room Type</th>
+                        <th>Max Guests</th>
+                        <th>Bed Type</th>
+                        <th>Room Size (m²)</th>
+                        <th>View</th>
+                        <th>Bathroom Type</th>
+                        <th>Kitchenette</th>
+                        <th>Balcony</th>
+                        <th>Price / Night (RON)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="type-icon icon-single"></span>Single</td>
+                        <td data-label="Room Type">Single Room</td>
+                        <td data-label="Max Guests">1</td>
+                        <td data-label="Bed Type">1 Single Bed</td>
+                        <td data-label="Room Size">~15 m²</td>
+                        <td data-label="View">City View</td>
+                        <td data-label="Bathroom Type">Private (Shower)</td>
+                        <td data-label="Kitchenette">No</td>
+                        <td data-label="Balcony">No</td>
+                        <td data-label="Price / Night (RON)">~140</td>
+                    </tr>
+                    <tr>
+                        <td><span class="type-icon icon-standard"></span>Standard</td>
+                        <td data-label="Room Type">Standard Double</td>
+                        <td data-label="Max Guests">2</td>
+                        <td data-label="Bed Type">1 Queen Bed</td>
+                        <td data-label="Room Size">~20 m²</td>
+                        <td data-label="View">City View</td>
+                        <td data-label="Bathroom Type">Private (Shower)</td>
+                        <td data-label="Kitchenette">No</td>
+                        <td data-label="Balcony">No</td>
+                        <td data-label="Price / Night (RON)">~180</td>
+                    </tr>
+                    <tr>
+                        <td><span class="type-icon icon-deluxe"></span>Deluxe</td>
+                        <td data-label="Room Type">Deluxe Twin</td>
+                        <td data-label="Max Guests">2</td>
+                        <td data-label="Bed Type">2 Single Beds</td>
+                        <td data-label="Room Size">~25 m²</td>
+                        <td data-label="View">Garden View</td>
+                        <td data-label="Bathroom Type">Private (Bathtub)</td>
+                        <td data-label="Kitchenette">No</td>
+                        <td data-label="Balcony">Yes</td>
+                        <td data-label="Price / Night (RON)">~220</td>
+                    </tr>
+                    <tr>
+                        <td><span class="type-icon icon-family"></span>Family</td>
+                        <td data-label="Room Type">Family Suite</td>
+                        <td data-label="Max Guests">4</td>
+                        <td data-label="Bed Type">1 King, 2 Singles</td>
+                        <td data-label="Room Size">~45 m²</td>
+                        <td data-label="View">Pool View</td>
+                        <td data-label="Bathroom Type">2 Private Bathrooms</td>
+                        <td data-label="Kitchenette">Yes</td>
+                        <td data-label="Balcony">Yes</td>
+                        <td data-label="Price / Night (RON)">~450</td>
+                    </tr>
+                    <tr>
+                        <td><span class="type-icon icon-studio"></span>Studio</td>
+                        <td data-label="Room Type">Executive Studio</td>
+                        <td data-label="Max Guests">2</td>
+                        <td data-label="Bed Type">1 King Bed</td>
+                        <td data-label="Room Size">~35 m²</td>
+                        <td data-label="View">Sea View</td>
+                        <td data-label="Bathroom Type">Private (Jacuzzi)</td>
+                        <td data-label="Kitchenette">Fully Equipped</td>
+                        <td data-label="Balcony">Large Terrace</td>
+                        <td data-label="Price / Night (RON)">~320</td>
+                    </tr>
+                    <tr>
+                        <td><span class="type-icon icon-penthouse"></span>Penthouse</td>
+                        <td data-label="Room Type">Penthouse Apartment</td>
+                        <td data-label="Max Guests">6</td>
+                        <td data-label="Bed Type">3 Queen Beds</td>
+                        <td data-label="Room Size">~120 m²</td>
+                        <td data-label="View">Panoramic Ocean</td>
+                        <td data-label="Bathroom Type">3 Private Bathrooms</td>
+                        <td data-label="Kitchenette">Premium Kitchen</td>
+                        <td data-label="Balcony">Wrap-around</td>
+                        <td data-label="Price / Night (RON)">~1200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="contact-info">
+                <h3>Contact us:</h3>
+                <address class="contact-address">
+                    <p>
+                        Booking Office<br>
+                        Street Ștefan cel Mare 12<br>
+                        700000 Iași, Romania<br>
+                        Email: <a href="mailto:booking@booking.com"><strong>booking@booking.com</strong></a><br>
+                        Phone: <strong>+40 123 456 789</strong>
+                    </p>
+                </address>
+            </div>
+            <div class="social-info"> 
+                <h3>Follow us on social media:</h3>
+                <ul class="social-links">
+                    <li><a href="https://www.facebook.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon facebook-icon"></span>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon linkedin-icon"></span>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li><a href="https://www.instagram.com/" target="_blank" class="social-link-item">
+                            <span class="social-icon instagram-icon"></span>
+                            Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="subscribe-info">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for exclusive deals and travel tips.</p>
+                <form method="post" class="newsletter-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="submit" value="Subscribe" disabled>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Booking. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
