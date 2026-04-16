@@ -186,4 +186,104 @@ main {
     .data-matrix td:nth-child(even):not(:last-child) {
         border-right: 1px solid #eee;
     }
+
+    .vertical-mode tr {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .vertical-mode th {
+        flex: 0 0 150px;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+    }
+    .vertical-mode td {
+        flex: 1 0 120px;
+    }
+    .vertical-mode td::before {
+        display: none !important;
+    }
+}
+
+.sortable, .sortable-row {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.sortable:hover, .sortable-row:hover {
+    background-color: var(--brand-accent, #2c3e50);
+}
+
+.sortable::after, .sortable-row::after {
+    content: ' \21D5';
+    opacity: 0.3;
+    font-size: 0.9em;
+}
+
+.sortable.asc::after, .sortable-row.asc::after {
+    content: ' \25B2';
+    opacity: 1;
+    color: var(--brand-pop, #ff6b6b);
+}
+
+.sortable.desc::after, .sortable-row.desc::after {
+    content: ' \25BC';
+    opacity: 1;
+    color: var(--brand-pop, #ff6b6b);
+}
+
+.vertical-mode th {
+    background-color: var(--brand-main);
+    color: var(--white);
+    text-align: left;
+    font-weight: bold;
+    width: 200px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.vertical-mode td {
+    text-align: center;
+}
+
+
+.compare-tree {
+    list-style: none;
+    padding: 0;
+    border: 1px solid var(--brand-accent);
+    border-radius: 8px;
+}
+
+.compare-tree > li {
+    padding: 1rem 1.5rem 1rem 3rem;
+    background: #fdfdfd;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+}
+
+.compare-tree > li::before {
+    content: '\25B8';
+    position: absolute;
+    left: 1.2rem;
+    color: var(--brand-pop);
+    transition: transform 0.3s;
+}
+
+.compare-tree > li.open::before {
+    transform: rotate(90deg);
+}
+
+.nested-sublist {
+    display: none;
+    font-weight: normal;
+    padding: 10px 0 0 0;
+    list-style-type: circle;
+}
+
+.compare-tree > li.open .nested-sublist {
+    display: block;
 }

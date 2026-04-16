@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/suitcase.png" type="image/png">
-    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
-    <link rel="stylesheet" href="../css/main-design/profile.css"> -->
-    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
-    <link rel="stylesheet" href="../css/ocean-theme/profile.css"> -->
     <link rel="stylesheet" href="../css/responsive/global.css">
     <link rel="stylesheet" href="../css/responsive/profile.css">
+    <script type="module" src="../scripts/profile.js"></script>
     <title>Profile</title>
 </head>
 <body>
@@ -31,7 +28,7 @@
                 <li><a class="nav-link" href="../index.html"><span class="menu-icon home-icon"></span>Home</a></li>
                 <li><a class="nav-link" href="discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
                 <li><a class="nav-link" href="profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
-                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Info</a></li>
             </ul>
         </nav>
     </header>
@@ -98,7 +95,8 @@
                         <div class="form-group">
                             <label for="country">Country:</label>
                             <div class="input-row">
-                                <input type="text" id="country" name="country" value="Romania" readonly>
+                                <select id="country" name="country" disabled>
+                                    </select>
                                 <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
                             </div>
                         </div>
@@ -106,7 +104,8 @@
                         <div class="form-group">
                             <label for="city">City:</label>
                             <div class="input-row">
-                                <input type="text" id="city" name="city" value="Cluj-Napoca" readonly>
+                                <select id="city" name="city" disabled>
+                                    </select>
                                 <button type="button" class="btn-icon"><img src="../images/modify.png" alt="Edit" width="20"></button>
                             </div>
                         </div>

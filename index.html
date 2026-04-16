@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/suitcase.png" type="image/png">
-    <!-- <link rel="stylesheet" href="css/main-design/global.css">
-    <link rel="stylesheet" href="css/main-design/index.css"> -->
-    <!-- <link rel="stylesheet" href="css/ocean-theme/global.css">
-    <link rel="stylesheet" href="css/ocean-theme/index.css"> -->
     <link rel="stylesheet" href="css/responsive/global.css" type="text/css">
     <link rel="stylesheet" href="css/responsive/index.css" type="text/css">
+    <script type="module" src="scripts/carousel.js"></script>
+    <script type="module" src="scripts/booking-forms.js"></script>
+    <script type="module" src="scripts/locations.js"></script>
     <title> Booking </title>
 </head>
 <body>
@@ -31,7 +30,7 @@
                 <li><a class="nav-link" href="index.html"><span class="menu-icon home-icon"></span>Home</a></li>
                 <li><a class="nav-link" href="pages/discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
                 <li><a class="nav-link" href="pages/profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
-                <li><a class="nav-link" href="pages/compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+                <li><a class="nav-link" href="pages/compare.html"><span class="menu-icon compare-icon"></span>Info</a></li>
             </ul>
         </nav>
     </header>
@@ -43,52 +42,36 @@
 
         <section class="search-section">
             <h2>Find Your Next Adventure</h2>
-            <form method="post">
-                <label for="search"><b>Search for destinations:</b></label><br>
-                <input type="text" id="search" name="search" placeholder="Enter a destination" maxlength="30" size="30">
+            <form id="home-form" action="pages/discover.html">
+                <div class="filter-group" style="position: relative;">
+                    <label for="search"><b>Search for destinations:</b></label><br>
+                    <input type="text" id="search" name="search" placeholder="Enter a destination" maxlength="30" size="30" autocomplete="off">
+                    <div id="search-error" class="error-text"></div>
+                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                </div>
+
                 <label for="check-in"><b>Check-in date:</b></label>
                 <input type="date" id="check-in" name="check-in">
+                <div id="checkin-error" class="error-text"></div>
+
                 <label for="check-out"><b>Check-out date:</b></label>
-                <input type="date" id="check-out" name="check-out"><br><br>
-                <input type="submit" value="Search" disabled>
+                <input type="date" id="check-out" name="check-out">
+                <div id="checkout-error" class="error-text"></div>
+
+                <br>
+                <input type="submit" id="home-submit" value="Search" disabled>
             </form>
         </section>
+
         <section class="featured-section">
             <h2>Featured Destinations</h2>
-            <ul>
-                <li class="destination">
-                    <img src="images/paris.webp" alt="Paris, France">
-                    <div class="circle-text">
-                        <h3>Paris</h3>
-                        <p class="country">France</p>
-                        <p class="description">Romance, art, and iconic landmarks.</p>
-                    </div>
-                </li>
-                <li class="destination">
-                    <img src="images/tokyo.jpg" alt="Tokyo, Japan">
-                    <div class="circle-text">
-                        <h3>Tokyo</h3>
-                        <p class="country">Japan</p>
-                        <p class="description">Where ancient tradition meets tomorrow.</p>
-                    </div>
-                </li>
-                <li class="destination">
-                    <img src="images/barcelona.webp" alt="Barcelona, Spain">
-                    <div class="circle-text">
-                        <h3>Barcelona</h3>
-                        <p class="country">Spain</p>
-                        <p class="description">Vibrant culture and sun-kissed shores.</p>
-                    </div>
-                </li>
-                <li class="destination">
-                    <img src="images/newyork.jpg" alt="New York, USA">
-                    <div class="circle-text">
-                        <h3>New York</h3>
-                        <p class="country">USA</p>
-                        <p class="description">Endless energy and world-class sights.</p>
-                    </div>
-                </li>
-            </ul>
+            <div class="carousel-flex-container"> 
+                <button id="prev-slide" class="carousel-control">&#10094;</button>
+                <div class="carousel-wrapper">
+                    <div id="carousel-content" class="carousel-content"></div>
+                </div>
+                <button id="next-slide" class="carousel-control">&#10095;</button>
+            </div>
         </section>
 
         <section class="benefits-section">
@@ -112,6 +95,7 @@
                 </li>
             </ol>
         </section>
+
         <section class="offers-section">
             <h2>Special Offers</h2>
             <table class="offers-table">
@@ -139,6 +123,7 @@
                 </tr>
             </table>
         </section>
+
         <section class="reviews-section">
             <h2>What Our Guests Say</h2>
             <h3>Guest Reviews</h3>
@@ -163,6 +148,21 @@
                 </li>
             </ol>
         </section>
+
+        <button id="bag-toggle" class="bag-toggle-btn" aria-label="Open saved rooms">
+            💼 Bag <span id="bag-badge" class="bag-badge">0</span>
+        </button>
+
+        <div id="bag-panel" class="bag-panel">
+            <div class="bag-header">
+                <h3>My Travel Bag</h3>
+                <button id="close-bag" class="close-bag-btn">&times;</button>
+            </div>
+            
+            <div id="bag-content" class="bag-content">
+                <p class="empty-msg">Your bag is empty. Start exploring!</p>
+            </div>
+        </div>
     </main>
     <footer class="site-footer">
         <div class="footer-container">

@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/suitcase.png" type="image/png">
-    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
-    <link rel="stylesheet" href="../css/main-design/compare.css"> -->
-    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
-    <link rel="stylesheet" href="../css/ocean-theme/compare.css"> -->
     <link rel="stylesheet" href="../css/responsive/global.css">
     <link rel="stylesheet" href="../css/responsive/compare.css">
+    <script type="module" src="../scripts/compare.js"></script>
     <title>Compare Rooms - Booking</title>
 </head>
 <body class="dashboard-layout">
@@ -31,7 +28,7 @@
                 <li><a class="nav-link" href="../index.html"><span class="menu-icon home-icon"></span>Home</a></li>
                 <li><a class="nav-link" href="discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
                 <li><a class="nav-link" href="profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
-                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Info</a></li>
             </ul>
         </nav>
     </header>
@@ -43,96 +40,43 @@
         </div>
 
         <section class="table-container">
-            <table class="data-matrix">
-                <thead>
-                    <tr>
-                        <th>Accom. Type</th>
-                        <th>Room Type</th>
-                        <th>Max Guests</th>
-                        <th>Bed Type</th>
-                        <th>Room Size (m²)</th>
-                        <th>View</th>
-                        <th>Bathroom Type</th>
-                        <th>Kitchenette</th>
-                        <th>Balcony</th>
-                        <th>Price / Night (RON)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="type-icon icon-single"></span>Single</td>
-                        <td data-label="Room Type">Single Room</td>
-                        <td data-label="Max Guests">1</td>
-                        <td data-label="Bed Type">1 Single Bed</td>
-                        <td data-label="Room Size">~15 m²</td>
-                        <td data-label="View">City View</td>
-                        <td data-label="Bathroom Type">Private (Shower)</td>
-                        <td data-label="Kitchenette">No</td>
-                        <td data-label="Balcony">No</td>
-                        <td data-label="Price / Night (RON)">~140</td>
-                    </tr>
-                    <tr>
-                        <td><span class="type-icon icon-standard"></span>Standard</td>
-                        <td data-label="Room Type">Standard Double</td>
-                        <td data-label="Max Guests">2</td>
-                        <td data-label="Bed Type">1 Queen Bed</td>
-                        <td data-label="Room Size">~20 m²</td>
-                        <td data-label="View">City View</td>
-                        <td data-label="Bathroom Type">Private (Shower)</td>
-                        <td data-label="Kitchenette">No</td>
-                        <td data-label="Balcony">No</td>
-                        <td data-label="Price / Night (RON)">~180</td>
-                    </tr>
-                    <tr>
-                        <td><span class="type-icon icon-deluxe"></span>Deluxe</td>
-                        <td data-label="Room Type">Deluxe Twin</td>
-                        <td data-label="Max Guests">2</td>
-                        <td data-label="Bed Type">2 Single Beds</td>
-                        <td data-label="Room Size">~25 m²</td>
-                        <td data-label="View">Garden View</td>
-                        <td data-label="Bathroom Type">Private (Bathtub)</td>
-                        <td data-label="Kitchenette">No</td>
-                        <td data-label="Balcony">Yes</td>
-                        <td data-label="Price / Night (RON)">~220</td>
-                    </tr>
-                    <tr>
-                        <td><span class="type-icon icon-family"></span>Family</td>
-                        <td data-label="Room Type">Family Suite</td>
-                        <td data-label="Max Guests">4</td>
-                        <td data-label="Bed Type">1 King, 2 Singles</td>
-                        <td data-label="Room Size">~45 m²</td>
-                        <td data-label="View">Pool View</td>
-                        <td data-label="Bathroom Type">2 Private Bathrooms</td>
-                        <td data-label="Kitchenette">Yes</td>
-                        <td data-label="Balcony">Yes</td>
-                        <td data-label="Price / Night (RON)">~450</td>
-                    </tr>
-                    <tr>
-                        <td><span class="type-icon icon-studio"></span>Studio</td>
-                        <td data-label="Room Type">Executive Studio</td>
-                        <td data-label="Max Guests">2</td>
-                        <td data-label="Bed Type">1 King Bed</td>
-                        <td data-label="Room Size">~35 m²</td>
-                        <td data-label="View">Sea View</td>
-                        <td data-label="Bathroom Type">Private (Jacuzzi)</td>
-                        <td data-label="Kitchenette">Fully Equipped</td>
-                        <td data-label="Balcony">Large Terrace</td>
-                        <td data-label="Price / Night (RON)">~320</td>
-                    </tr>
-                    <tr>
-                        <td><span class="type-icon icon-penthouse"></span>Penthouse</td>
-                        <td data-label="Room Type">Penthouse Apartment</td>
-                        <td data-label="Max Guests">6</td>
-                        <td data-label="Bed Type">3 Queen Beds</td>
-                        <td data-label="Room Size">~120 m²</td>
-                        <td data-label="View">Panoramic Ocean</td>
-                        <td data-label="Bathroom Type">3 Private Bathrooms</td>
-                        <td data-label="Kitchenette">Premium Kitchen</td>
-                        <td data-label="Balcony">Wrap-around</td>
-                        <td data-label="Price / Night (RON)">~1200</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="page-header">
+                <h2>Room Benefits Comparison</h2>
+            </div>
+            
+            <table id="compare-table" class="data-matrix">
+                </table>
+            <!-- <table id="compare-table" class="data-matrix vertical-mode">
+                </table> -->
+        </section>
+
+        <section class="details-section">
+            <h2>Important Stay Details</h2>
+            <p>To avoid future issues, please read the following policies carefully:</p>
+
+            <ul class="compare-tree">
+                <li>Standard & Deluxe Policies
+                    <ul class="nested-sublist">
+                        <li>Cancellation: Free up to 24h before arrival.</li>
+                        <li>Breakfast: Included in the room price if offered.</li>
+                        <li>Extra beds: Not available for these room types.</li>
+                    </ul>
+                </li>
+                <li>Family & Penthouse Extras
+                    <ul class="nested-sublist">
+                        <li>Airport Transfer: Optional (+100 RON).</li>
+                        <li>Kitchenette: Fully stocked with basic spices and utensils.</li>
+                        <li>Laundry: 24/7 express service available.</li>
+                    </ul>
+                </li>
+                <li>General Hotel Rules
+                    <ul class="nested-sublist">
+                        <li>Quiet hours: Between 22:00 and 08:00.</li>
+                        <li>Smoking: Prohibited in all indoor areas (balcony only).</li>
+                        <li>Parking: Subject to availability upon check-in.</li>
+                    </ul>
+                </li>
+            </ul>
         </section>
     </main>
 

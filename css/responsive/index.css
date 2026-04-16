@@ -116,27 +116,66 @@
 .featured-section {
     grid-column: 1 / -1;
     padding: 2rem 0;
+    text-align: center;
 }
 
-.featured-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 2rem 0 0 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+.carousel-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
-    justify-items: center;
+    margin: 2rem auto 0;
+    max-width: 800px;
 }
+
+.carousel-wrapper {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.carousel-content {
+    width: 100%;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.carousel-control {
+    background-color: var(--brand-pop, #ff6b6b);
+    color: white;
+    border: none;
+    font-size: 28px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.carousel-control:hover {
+    background-color: #333;
+    transform: scale(1.15);
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
 
 .destination {
     position: relative;
     width: 100%;
-    max-width: 240px; 
+    max-width: 320px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;             
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .destination img {
@@ -165,19 +204,23 @@
     box-sizing: border-box;
 }
 
-.circle-text h3 { margin: 0 0 5px 0; font-size: 1.5rem; }
+.circle-text h3 { 
+    margin: 0 0 5px 0; 
+    font-size: 1.8rem;
+}
+
 .circle-text .country {
     margin: 0 0 10px 0;
     font-weight: bold;
-    color: var(--brand-pop);
-    font-size: 0.9rem;
+    color: var(--brand-pop, #ff6b6b);
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .circle-text .description {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     line-height: 1.4;
     opacity: 0;
     transition: opacity 0.3s ease 0.2s;
@@ -190,8 +233,17 @@
 .destination:hover .circle-text .description {
     opacity: 1;
 }
+
 .destination:hover img {
     transform: scale(1.1);
+}
+
+.destination a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* Benefits section */
@@ -365,10 +417,6 @@
         padding: 2rem 5%;
     }
 
-    .featured-section ul {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
     .reviews-list {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -386,6 +434,21 @@
         grid-template-columns: 1fr;
     }
     
+    .carousel-flex-container {
+        gap: 1rem;
+    }
+
+    .carousel-wrapper {
+        width: 280px;
+        height: 280px;
+    }
+
+    .carousel-control {
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+    }
+
     .reviews-list {
         grid-template-columns: 1fr;
     }

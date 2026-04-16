@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/login.png" type="image/png">
-    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
-    <link rel="stylesheet" href="../css/main-design/auth.css"> -->
-    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
-    <link rel="stylesheet" href="../css/ocean-theme/auth.css"> -->
     <link rel="stylesheet" href="../css/responsive/global.css">
     <link rel="stylesheet" href="../css/responsive/auth.css">
+    <script type="module" src="../scripts/account-forms.js"></script>
     <title>Login - Booking</title>
 </head>
 <body class="auth-page">
@@ -18,16 +15,18 @@
         <h1>Welcome Back</h1>
         <p class="subtitle">Log in to manage your bookings</p>
         
-        <form action="../index.html">
+        <form action="../index.html" id="login-form">
             
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                <div id="login-email-error" class="error-text"></div>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                <div id="login-password-error" class="error-text"></div>
             </div>
             
             <button type="submit" class="btn-primary btn-block">Log in</button>

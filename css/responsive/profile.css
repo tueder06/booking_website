@@ -404,3 +404,31 @@
         text-align: center;
     }
 }
+
+.input-row select {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 2px solid #eef2f5;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-row select:disabled {
+    color: #555;
+    border-color: transparent;
+    background-color: transparent;
+    appearance: none;
+    -moz-appearance: none;
+}
+
+.input-row select:focus:not(:disabled) {
+    outline: none;
+    border-color: var(--brand-accent);
+    background-color: var(--white);
+}

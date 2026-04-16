@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/discover.png" type="image/png">
-    <!-- <link rel="stylesheet" href="../css/main-design/global.css">
-    <link rel="stylesheet" href="../css/main-design/discover.css"> -->
-    <!-- <link rel="stylesheet" href="../css/ocean-theme/global.css">
-    <link rel="stylesheet" href="../css/ocean-theme/discover.css"> -->
     <link rel="stylesheet" href="../css/responsive/global.css">
     <link rel="stylesheet" href="../css/responsive/discover.css">
+    <script type="module" src="../scripts/booking-forms.js"></script>
+    <script type="module" src="../scripts/locations.js"></script>
     <title>Discover</title>
 </head>
 <body>
@@ -31,7 +29,7 @@
                 <li><a class="nav-link" href="../index.html"><span class="menu-icon home-icon"></span>Home</a></li>
                 <li><a class="nav-link" href="discover.html"><span class="menu-icon discover-icon"></span>Discover</a></li>
                 <li><a class="nav-link" href="profile.html"><span class="menu-icon profile-icon"></span>Profile</a></li>
-                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Compare Rooms</a></li>
+                <li><a class="nav-link" href="compare.html"><span class="menu-icon compare-icon"></span>Info</a></li>
             </ul>
         </nav>
     </header>
@@ -47,21 +45,25 @@
             <aside class="filter-sidebar">
                 <div class="filter-card">
                     <h2>Filter your search</h2>
-                    <form method="post" class="filter-form">
+                    <form class="filter-form" id="filter-form">
                         
                         <div class="filter-group">
                             <label for="search"><b>Destination:</b></label>
                             <input type="text" id="search" name="search" placeholder="Enter a destination" maxlength="30">
+                            <div id="search-error" class="error-text"></div>
+                            <div id="autocomplete-list" class="autocomplete-items"></div>
                         </div>
                         
                         <div class="filter-row">
                             <div class="filter-group">
                                 <label for="check-in"><b>Check-in:</b></label>
                                 <input type="date" id="check-in" name="check-in">
+                                <div id="checkin-error" class="error-text"></div>
                             </div>
                             <div class="filter-group">
                                 <label for="check-out"><b>Check-out:</b></label>
                                 <input type="date" id="check-out" name="check-out">
+                                <div id="checkout-error" class="error-text"></div>
                             </div>
                         </div>
 
@@ -75,7 +77,7 @@
 
                         <fieldset>
                             <legend>Property type</legend>
-                            <div class="scroll-box">
+                            <div class="scroll-box" id="property-container">
                                 <label><input type="checkbox" id="hotel" checked> Hotels</label>
                                 <label><input type="checkbox" id="apartment" checked> Apartments</label>
                                 <label><input type="checkbox" id="villa" checked> Villas</label>
@@ -85,12 +87,14 @@
                                 <label><input type="checkbox" id="hostel" checked> Hostels</label>
                                 <label><input type="checkbox" id="camping" checked> Camping</label>
                             </div>
+                            <div id="property-error" class="error-text"></div>
                         </fieldset>
 
-                        <fieldset>
+                        <fieldset id="meal-container">
                             <legend>Meal plan</legend>
                             <label><input type="radio" name="catering" value="self-catering"> Self Catering</label>
                             <label><input type="radio" name="catering" value="breakfast-included"> Breakfast Included</label>
+                            <div id="meal-error" class="error-text"></div> </fieldset>
                         </fieldset>
 
                         <fieldset>
@@ -121,85 +125,35 @@
                                 <option value="pool">Swimming Pool</option>
                                 <option value="gym">Fitness Center</option>
                                 <option value="spa">Spa</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="bar">Bar</option>
+                                <option value="pet-friendly">Pet Friendly</option>
                             </select>
+                            <div id="facilities-error" class="error-text"></div>
                         </fieldset>
                     </form>
                 </div>
             </aside>
 
             <section class="found-locations">
-                <table class="results-table">
-                    
-                    <tr class="result-card">
-                        <td class="result-image">
-                            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/677667170.jpg?k=4a7a26129fe4109a64b4fba9bf75f13e11bff441edd8995184e1eed687804669&o=" alt="Luxury Evergreen">
-                        </td>
-                        <td class="result-info">
-                            <div class="info-header">
-                                <h3>Luxury Evergreen Towers by Glam Apartments</h3>
-                                <span class="rating-badge">Excellent 9.2</span>
-                            </div>
-                            <p class="location-text"><strong>Iași, Romania</strong> • 4,6km from City Center</p>
-                            <p class="room-type">Apartment with 1 bedroom</p>
-                            <div class="price-box">
-                                <span class="price-val">240 RON</span> / night
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="result-card">
-                        <td class="result-image">
-                            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/762792738.jpg?k=10d7d1a3614016a95902cb8824797cd04e3f8c78136a0ba56a4b23f8ddd4290e&o=" alt="Seaside Serenity">
-                        </td>
-                        <td class="result-info">
-                            <div class="info-header">
-                                <h3>Seaside Serenity Apartments</h3>
-                                <span class="rating-badge">Very Good 8.7</span>
-                            </div>
-                            <p class="location-text"><strong>Constanța, Romania</strong> • 0.8km from Beach</p>
-                            <p class="room-type">Apartment with 2 bedrooms</p>
-                            <div class="price-box">
-                                <span class="price-val">180 RON</span> / night
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="result-card">
-                        <td class="result-image">
-                            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/477203913.jpg?k=70150cc6d1e056b8e5795b7d1ead266542be64731b4cda55b3651c7641104fb6&o=" alt="Mountainview Retreat">
-                        </td>
-                        <td class="result-info">
-                            <div class="info-header">
-                                <h3>Mountainview Retreat Lodge</h3>
-                                <span class="rating-badge">Excellent 9.1</span>
-                            </div>
-                            <p class="location-text"><strong>Șirnea, Romania</strong> • 31.6km from Brașov Center</p>
-                            <p class="room-type">Chalet with 3 bedrooms</p>
-                            <div class="price-box">
-                                <span class="price-val">320 RON</span> / night
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="result-card">
-                        <td class="result-image">
-                            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/580894043.jpg?k=0a80931ff19822dade74110385d01ea4e81201699682ec7ce593ed92fcb1aa19&o=" alt="City apartment">
-                        </td>
-                        <td class="result-info">
-                            <div class="info-header">
-                                <h3>Central City Suites</h3>
-                                <span class="rating-badge">Very Good 8.5</span>
-                            </div>
-                            <p class="location-text"><strong>Bucharest, Romania</strong> • 0.5km from Old Town</p>
-                            <p class="room-type">Studio apartment</p>
-                            <div class="price-box">
-                                <span class="price-val">210 RON</span> / night
-                            </div>
-                        </td>
-                    </tr>
-
-                </table>
+                <table class="results-table" id="discover-results-table">
+                    </table>
             </section>
+
+            <button id="bag-toggle" class="bag-toggle-btn" aria-label="Open saved rooms">
+                💼 Bag <span id="bag-badge" class="bag-badge">0</span>
+            </button>
+
+            <div id="bag-panel" class="bag-panel">
+                <div class="bag-header">
+                    <h3>My Travel Bag</h3>
+                    <button id="close-bag" class="close-bag-btn">&times;</button>
+                </div>
+                
+                <div id="bag-content" class="bag-content">
+                    <p class="empty-msg">Your bag is empty. Start exploring!</p>
+                </div>
+            </div>
         </div>
     </main>
     <footer class="site-footer">
