@@ -284,6 +284,6 @@ main {
     list-style-type: circle;
 }
 
-.compare-tree > li.open .nested-sublist {
+/* .compare-tree > li.open .nested-sublist {
     display: block;
-}
+} */

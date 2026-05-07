@@ -63,6 +63,19 @@ export const roomsToCompare = [
     { id: 'penthouse', type: "Penthouse", icon: "icon-penthouse", name: "Penthouse Apartment", guests: 6, bed: "3 Queen Beds", size: 120, view: "Panoramic Ocean", bath: "3 Private Bathrooms", kitchen: "Premium Kitchen", balcony: "Wrap-around", price: 1200 }
 ];
 
+export const tableHeaders = [
+    { key: 'type', label: 'Accom. Type' },
+    { key: 'name', label: 'Room Type' },
+    { key: 'guests', label: 'Max Guests' },
+    { key: 'bed', label: 'Bed Type' },
+    { key: 'size', label: 'Room Size (m²)' },
+    { key: 'view', label: 'View' },
+    { key: 'bath', label: 'Bathroom Type' },
+    { key: 'kitchen', label: 'Kitchenette' },
+    { key: 'balcony', label: 'Balcony' },
+    { key: 'price', label: 'Price / Night (RON)' }
+];
+
 export const discoverLocations = [
     {
         id: "loc_evergreen",

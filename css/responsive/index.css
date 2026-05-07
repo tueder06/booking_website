@@ -139,7 +139,7 @@
 
 .carousel-content {
     width: 100%;
-    transition: opacity 0.4s ease-in-out;
+    /* transition: opacity 0.4s ease-in-out; */
 }
 
 .carousel-control {

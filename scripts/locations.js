@@ -60,13 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         bagContent.innerHTML = ''; 
 
-        let totalPrice = 0;
-
         savedRooms.forEach(roomId => {
             const locData = discoverLocations.find(r => r.id === roomId);
             if (!locData) return;
-
-            totalPrice += locData.price;
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'bag-item';
