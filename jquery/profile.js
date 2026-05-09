@@ -1,4 +1,4 @@
-import { locationData } from '../scripts/data.js';
+import { locationData } from '../js/data.js';
 
 $(document).ready(function() {
     const $country = $('#country');

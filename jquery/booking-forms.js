@@ -1,4 +1,4 @@
-import { activeCities } from '../scripts/data.js';
+import { activeCities } from '../js/data.js';
 import { removeAccents, showError, clearErrors } from './utils.js';
 
 $(document).ready(function() {

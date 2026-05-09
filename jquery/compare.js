@@ -1,4 +1,4 @@
-import { roomsToCompare, tableHeaders } from '../scripts/data.js';
+import { roomsToCompare, tableHeaders } from '../js/data.js';
 
 $(document).ready(function() {
     const $compareTable = $('#compare-table');

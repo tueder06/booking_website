@@ -1,4 +1,4 @@
-import { discoverLocations } from '../scripts/data.js';
+import { discoverLocations } from '../js/data.js';
 
 $(document).ready(function() {
     const $resultsTable = $('#discover-results-table');

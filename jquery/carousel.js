@@ -1,4 +1,4 @@
-import { carouselData } from '../scripts/data.js';
+import { carouselData } from '../js/data.js';
 
 $(document).ready(function() {
     const $carouselContent = $('#carousel-content');

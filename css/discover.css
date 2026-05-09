@@ -1,0 +1,348 @@
+.main-content {
+    padding: 2rem var(--side-padding);
+    max-width: 1400px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.hero-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem var(--side-padding);
+    margin-bottom: 1rem;
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.hero-section h1 {
+    color: var(--brand-main);
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.search-results-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.filter-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: calc(var(--top-bar-height) + 2rem);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.filter-card h2 {
+    font-size: 1.3rem;
+    color: var(--brand-main);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--brand-pop);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.filter-group {
+    position: relative;
+}
+
+.filter-form fieldset { 
+    border: none;
+    border-top: 1px solid #eee;
+    padding: 1rem 0;
+    margin: 0;
+}
+
+.filter-form legend { 
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--brand-main);
+    margin-bottom: 0.8rem; 
+}
+
+.filter-form label {
+    display: block;
+    font-size: 0.9rem; 
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+.filter-form input[type="text"], 
+.filter-form input[type="date"], 
+.filter-form select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.filter-form input:focus, 
+.filter-form select:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+}
+
+.btn-search {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--brand-pop);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-search:hover { 
+    background-color: #ea580c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3); 
+}
+
+.results-table, 
+.results-table tbody { 
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    
+}
+
+.result-card { 
+    display: flex;
+    background: var(--white); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    border-radius: 12px;
+    margin: 10px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    border: 1px solid rgba(0,0,0,0.05);
+    overflow: hidden;
+    width: 100%;
+    height: 250px; 
+}
+
+.result-card:hover {
+    border-color: var(--brand-accent);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.result-image-col {
+    display: block;
+    width: 35%;
+    min-width: 280px;
+    padding: 0;
+}
+
+.result-image-col img { 
+    width: 100%; 
+    height: 100%; 
+    min-height: 220px;
+    object-fit: cover; 
+    display: block;
+}
+
+.result-info-col { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 65%;
+    padding: 25px;
+    position: relative;
+}
+
+.card-title {
+    margin: 0 0 15px 0;
+    color: var(--brand-main);
+    font-size: 1.4rem;
+    line-height: 1.4;
+    padding-right: 130px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rating-badge { 
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: var(--brand-main);
+    color: #f4dd0a; 
+    padding: 6px 12px; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    font-size: 0.95rem;
+}
+
+.location-text { 
+    color: #555;
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+}
+
+.room-type { 
+    color: #888;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.price-display { 
+    color: var(--brand-accent); 
+}
+
+.price-val {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.price-currency {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.add-to-bag-btn {
+    padding: 8px 15px;
+    background-color: #f97316;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-to-bag-btn:hover {
+    background-color: #ea580c;
+    transform: translateY(-2px);
+}
+
+
+
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        padding: 2rem 5%;
+    }
+
+    .search-results-layout {
+        grid-template-columns: 1fr; 
+    }
+
+    .filter-card {
+        position: static; 
+        margin-bottom: 1rem;
+    }
+
+    .filter-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        align-items: end;
+    }
+
+    .filter-form fieldset { 
+        border-top: none; padding: 0; 
+    }
+
+    .result-card { 
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .result-image-col { 
+        width: 100%; 
+        min-width: 100%;
+        height: 250px;
+    }
+    
+    .result-info-col { 
+        width: 100%;
+        padding: 1.5rem; 
+    }
+
+    .card-title {
+        padding-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .rating-badge { 
+        position: static;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .discover-container {
+        padding: 1.5rem 5%;
+    }
+
+    .result-image-col {
+        height: 200px;
+    }
+
+    .filter-form { 
+        grid-template-columns: 1fr;
+    }
+
+    .card-actions {
+        align-items: stretch;
+    }
+    
+    .add-to-bag-btn {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    .price-display {
+        text-align: right;
+    }
+}
