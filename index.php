@@ -1,5 +1,13 @@
 <?php
 require_once __DIR__ . '/includes/upload_acmd.php';
+
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="error-message">';
+    echo htmlspecialchars($_SESSION['error_message']);
+    echo '</div>';
+    
+    unset($_SESSION['error_message']);
+}
 ?>
 
 <!DOCTYPE html>

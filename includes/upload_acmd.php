@@ -15,15 +15,26 @@ $sql = "SELECT
 
 $db_locations = [];
 
-if ($conn instanceof PDO) {
-    $stmt = $conn->query($sql);
-    $db_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} elseif ($conn instanceof mysqli) {
-    $result = $conn->query($sql);
-    while ($row = $result->fetch_assoc()) {
-        $db_locations[] = $row;
+try {
+    if ($conn instanceof PDO) {
+        $stmt = $conn->query($sql);
+        $db_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } elseif ($conn instanceof mysqli) {
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+            $db_locations[] = $row;
+        }
     }
+} catch (Exception $e) {
+    error_log("Database Fetch Error: " . $e->getMessage());
+    $db_locations = [];
 }
 
-$json_locations = json_encode($db_locations);
+$json_locations = json_encode($db_locations, 
+    JSON_HEX_TAG |
+    JSON_HEX_AMP |
+    JSON_HEX_APOS |
+    JSON_HEX_QUOT |
+    JSON_UNESCAPED_UNICODE
+);
 ?>

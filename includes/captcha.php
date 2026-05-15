@@ -4,7 +4,7 @@ session_start();
 $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 $captcha_code = '';
 for ($i = 0; $i < 6; $i++) {
-    $captcha_code .= $chars[rand(0, strlen($chars) - 1)];
+    $captcha_code .= $chars[random_int(0, strlen($chars) - 1)];
 }
 
 $_SESSION['captcha_code'] = $captcha_code;
@@ -46,6 +46,9 @@ for ($i = 0; $i < 50; $i++) {
     imagesetpixel($image, mt_rand(0, $width), mt_rand(0, $height), $dot_color);
 }
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 header('Content-type: image/png');
 imagepng($image);
 imagedestroy($image);

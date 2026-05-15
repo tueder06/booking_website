@@ -206,7 +206,7 @@ body {
     display: block;
     width: 24px;
     height: 24px;
-    background-image: url('../../images/social-media-icons.png');
+    background-image: url('../images/social-media-icons.png');
     background-repeat: no-repeat;
     background-size: 141px 105px;
     transition: transform 0.3s ease;
@@ -659,4 +659,10 @@ body {
     font-weight: bold;
     color: #155724;
     text-decoration: underline;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
 }

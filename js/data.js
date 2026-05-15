@@ -27,29 +27,25 @@ export const carouselData = [
         image: "images/paris.webp",
         title: "Paris",
         country: "France",
-        text: "Romance, art, and iconic landmarks.",
-        link: "discover.php?search=Paris"
+        text: "Romance, art, and iconic landmarks."
     },
     {
         image: "images/tokyo.jpg",
         title: "Tokyo",
         country: "Japan",
-        text: "Where ancient tradition meets tomorrow.",
-        link: "discover.php?search=Tokyo"
+        text: "Where ancient tradition meets tomorrow."
     },
     {
         image: "images/barcelona.webp",
         title: "Barcelona",
         country: "Spain",
-        text: "Vibrant culture and sun-kissed shores.",
-        link: "discover.php?search=Barcelona"
+        text: "Vibrant culture and sun-kissed shores."
     },
     {
         image: "images/newyork.jpg",
         title: "New York",
         country: "USA",
-        text: "Endless energy and world-class sights.",
-        link: "discover.php?search=New York"
+        text: "Endless energy and world-class sights."
     }
 ];
 

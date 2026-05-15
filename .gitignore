@@ -1,2 +1,5 @@
 *.ini
 *.sqlite
+uploads/
+*.log
+steal.php

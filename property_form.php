@@ -7,9 +7,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'owner') {
 }
 
 $error_msg = '';
-if (isset($_SESSION['error_msg'])) {
-    $error_msg = $_SESSION['error_msg'];
-    unset($_SESSION['error_msg']);
+if (isset($_SESSION['error_message'])) {
+    $error_msg = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
 }
 
 function getPropertyById($conn, $property_id, $owner_id) {
@@ -84,6 +84,7 @@ if ($action === 'edit' && $property_id) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/suitcase.png" type="image/png">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/property-form.css">
     <script type="module" src="js/property-form.js"></script>
@@ -113,6 +114,7 @@ if ($action === 'edit' && $property_id) {
                         <input type="hidden" name="property_id" value="<?= $property_id ?>">
                     <?php endif; ?>
 
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="form-grid">
                         <div class="form-group" style="grid-column: 1 / -1;">
                             <label for="name">Property Name:</label>
@@ -213,7 +215,13 @@ if ($action === 'edit' && $property_id) {
                             <?php if($action === 'edit' && !empty($existing_image)): ?>
                                 <div class="image-preview-container">
                                     <p>Current Image:</p>
-                                    <img src="<?= htmlspecialchars($existing_image) ?>" alt="Current Property Image">
+                                    <div class="file-box">
+                                        <img src="<?= htmlspecialchars($existing_image) ?>" alt="Current Property Image">
+                                        
+                                        <a href="export_media.php?file=<?= urlencode(basename($existing_image)) ?>" class="download-button">
+                                            Download photo
+                                        </a>
+                                    </div>
                                 </div>
                             <?php endif; ?>
                             <input type="file" id="property-image" name="property-image" accept="image/jpeg, image/png, image/webp" class="file-input">

@@ -11,8 +11,14 @@ $success_msg = '';
 $error_msg = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_property_id'])) {
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        http_response_code(403);
+        $_SESSION['error_message'] = "Session expired or action could not be validated. Please retry.";
+        header("Location: index.php"); 
+        exit;
+    }
     $delete_id = $_POST['delete_property_id'];
-    
+
     $img_sql = "SELECT image_path FROM accomodations WHERE id = ? AND owner_id = ?";
     $old_image_path = null;
     
@@ -45,17 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_property_id'])
     }
 
     if ($deleted) {
-        $success_msg = "Property deleted successfully.";
-        
         if (!empty($old_image_path) && file_exists($old_image_path)) {
             unlink($old_image_path);
         }
+        $_SESSION['temp_success'] = "Property deleted successfully.";
+        header("Location: accomodations.php");
+        exit;
     } else {
         $error_msg = "Failed to delete property.";
     }
 }
 
-if (isset($_GET['success']) && $_GET['success'] == 1) {
+if (isset($_GET['success']) && $_GET['success'] === '1') {
     $success_msg = "Property saved successfully!";
 }
 
@@ -128,6 +135,12 @@ $total_properties = count($properties);
                     <?= htmlspecialchars($success_msg) ?>
                 </div>
             <?php endif; ?>
+            <?php if (isset($_SESSION['temp_success'])): ?>
+                <div class="success-message">
+                    <?= htmlspecialchars($_SESSION['temp_success']) ?>
+                </div>
+                <?php unset($_SESSION['temp_success']); ?>
+            <?php endif; ?>
 
             <?php if ($error_msg): ?>
                 <div class="error-message">
@@ -147,7 +160,7 @@ $total_properties = count($properties);
                     <?php foreach ($properties as $prop): ?>
                         <article class="property-card">
                             <div class="property-image-container">
-                                <img src="<?= htmlspecialchars($prop['image_path']) ?>" alt="<?= htmlspecialchars($prop['name']) ?>" onerror="this.src='images/placeholder-home.png'">
+                                <img src="<?= htmlspecialchars($prop['image_path']) ?>" alt="<?= htmlspecialchars($prop['name']) ?>" onerror="this.src='images/placeholder-home.webp'">
                             </div>
                             
                             <div class="property-info">
@@ -168,6 +181,7 @@ $total_properties = count($properties);
                                     
                                     <form action="accomodations.php" method="POST" class="delete-form">
                                         <input type="hidden" name="delete_property_id" value="<?= $prop['id'] ?>">
+                                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                         <button type="submit" class="btn-action delete">
                                             <img src="images/delete-icon.png" alt="Del" width="16" onerror="this.style.display='none'"> Delete
                                         </button>

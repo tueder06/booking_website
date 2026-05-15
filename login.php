@@ -1,73 +1,76 @@
 <?php
 require_once 'includes/init.php';
 
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit;
+}
+
 $error_msg = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        http_response_code(403);
+        $error_msg = "Session expired or action could not be validated. Please retry.";
+    } else {
+        $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+        $password = $_POST['password'] ?? '';
 
-    $user_input = strtoupper(trim($_POST['captcha'] ?? ''));
-    $actual_code = strtoupper($_SESSION['captcha_code'] ?? '');
+        $user_input = strtoupper(trim($_POST['captcha'] ?? ''));
+        $actual_code = strtoupper($_SESSION['captcha_code'] ?? '');
+        unset($_SESSION['captcha_code']);
 
-    if ($user_input === $actual_code) {
-        if (!empty($email) && !empty($password)) {
+        if (!$email) {
+            $error_msg = "Please enter a valid email address.";
+        } elseif (empty($password)) {
+            $error_msg = "Password is required.";
+        } elseif ($user_input !== $actual_code) {
+            $error_msg = "CAPTCHA verification failed. Please try again.";
+        } else {
             $sql = "SELECT id, password, first_name, role FROM users WHERE email = ?";
             $user_data = null;
 
-            if ($conn instanceof PDO) {
-                try {
+            try {
+                if ($conn instanceof PDO) {
                     $stmt = $conn->prepare($sql);
                     $stmt->execute([$email]);
                     $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
-                } catch (PDOException $e) {
-                    $error_msg = "Database error: " . $e->getMessage();
-                }
-            } 
-            elseif ($conn instanceof mysqli) {
-                if ($stmt = $conn->prepare($sql)) {
-                    $stmt->bind_param("s", $email);
-                    $stmt->execute();
-                    
-                    $result = $stmt->get_result();
-                    if ($result->num_rows === 1) {
-                        $user_data = $result->fetch_assoc();
+                } elseif ($conn instanceof mysqli) {
+                    if ($stmt = $conn->prepare($sql)) {
+                        $stmt->bind_param("s", $email);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows === 1) {
+                            $user_data = $result->fetch_assoc();
+                        }
+                        $stmt->close();
+                    } else {
+                        $error_msg = "An error occurred. Please try again later.";
                     }
-                    $stmt->close();
-                } else {
-                    $error_msg = "Database error: " . $conn->error;
                 }
+            } catch (Exception $e) {
+                $error_msg = "An error occurred. Please try again later.";
             }
 
-            if ($user_data) {
-                if (password_verify($password, $user_data['password'])) {
-                    
-                    session_regenerate_id(true);
-                    $_SESSION['user_id'] = $user_data['id'];
-                    $_SESSION['first_name'] = $user_data['first_name'];
-                    $_SESSION['role'] = $user_data['role'];
-                    
-                    if (isset($_POST['remember'])) {
-                        createRememberMe($conn, $user_data['id']);
-                    }
-
-                    header("Location: index.php");
-                    exit;
-
-                } else {
-                    $error_msg = "Invalid email or password.";
+            if ($user_data && password_verify($password, $user_data['password'])) {
+                session_regenerate_id(true);
+                $_SESSION['user_id'] = $user_data['id'];
+                $_SESSION['first_name'] = $user_data['first_name'];
+                $_SESSION['role'] = $user_data['role'];
+                
+                if (isset($_POST['remember'])) {
+                    createRememberMe($conn, $user_data['id']);
                 }
+
+                header("Location: index.php");
+                exit;
             } else {
                 if (empty($error_msg)) {
                     $error_msg = "Invalid email or password.";
                 }
             }
-        } else {
-            $error_msg = "Please enter both email and password.";
         }
-    } else {
-        $error_msg = "CAPTCHA verification failed. Please try again.";
-    } 
+    }
 }
 ?>
 
@@ -116,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" id="captcha" name="captcha" placeholder="Enter the code" required>
             </div>
 
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <button type="submit" class="btn-primary btn-block">Log in</button>
         </form>
         

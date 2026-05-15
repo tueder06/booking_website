@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/upload_acmd.php';
 
 $is_submitted = isset($_GET['search']);
+$is_sidebar_click = isset($_GET['sidebar_search']);
 
 $val_search = $_GET['search'] ?? '';
 $val_checkin = $_GET['check-in'] ?? '';
@@ -13,90 +14,145 @@ $val_catering = $_GET['catering'] ?? '';
 $val_types = isset($_GET['property_type']) ? (array)$_GET['property_type'] : [];
 $val_facilities = isset($_GET['facilities']) ? (array)$_GET['facilities'] : [];
 
+$errors = [];
+
+if ($is_submitted) {
+    if (empty($val_search)) {
+        $errors['search'] = "Please enter a destination.";
+    } else {
+        if (strlen($val_search) < 2) {
+            $errors['search'] = "Destination name is too short.";
+        }
+    }
+
+    if (empty($val_checkin)) $errors['checkin'] = "Check-in date is required.";
+    if (empty($val_checkout)) $errors['checkout'] = "Check-out date is required.";
+    
+    if (!empty($val_checkin) && !empty($val_checkout)) {
+        if (strtotime($val_checkout) < strtotime($val_checkin)) {
+            $errors['checkout'] = "Check-out cannot be before Check-in.";
+        }
+        if (strtotime($val_checkin) < strtotime('today')) {
+            $errors['checkin'] = "Check-in cannot be in the past.";
+        }
+    }
+
+    if ($is_sidebar_click) {
+        if (empty($val_types)) {
+            $errors['property'] = "Please select at least one property type.";
+        }
+
+        if (empty($val_catering)) {
+            $errors['meal'] = "Please select a meal plan.";
+        }
+
+        if (empty($val_facilities)) {
+            $errors['facilities'] = "Please select at least one facility.";
+        }
+
+        if ($val_price < 0 || $val_price > 2000) {
+            $errors['price'] = "Invalid price range (it must be in [0,2000]).";
+        }
+    }
+}
+
+$can_query = !$is_submitted || ($is_submitted && empty($errors));
+
 function checkPropertyType($type, $val_types, $is_submitted) {
     if (!$is_submitted) return 'checked';
     return in_array($type, $val_types) ? 'checked' : '';
 }
 
-$sql_filt = "SELECT id, name, image_path AS image, rating, city, distance, room_type AS roomType, price 
+$db_locations_filtered = [];
+if($can_query) {
+    $sql_filt = "SELECT id, name, image_path AS image, rating, city, distance, room_type AS roomType, price 
         FROM accomodations WHERE 1=1";
 
-$params = [];
+    $params = [];
 
-$types = "";
-if (!empty($_GET['search'])) {
-    $sql_filt .= " AND (city LIKE ?)";
-    $types .= "s";
-    $params[] = '%' . $_GET['search'] . '%';
-}
+    $types = "";
+    if (!empty($_GET['search'])) {
+        # compromised version
+        // $search_term = $_GET['search'];
+        // $sql_filt .= " AND (city LIKE '%$search_term%')";
 
-if (!empty($_GET['price-slider'])) {
-    $sql_filt .= " AND price <= ?";
-    $types .= "i";
-    $params[] = $_GET['price-slider'];
-}
+        //http://localhost/booking_website/discover.php?search=%27)%20UNION%20SELECT%20id,%20email,%20%27poza.jpg%27,%2010,%20password,%20%27N/A%27,%20role,%200%20FROM%20users%20%23&check-in=2026-07-13&check-out=2026-07-18
+        //<img src=x onerror="location.href='steal.php?data='+document.cookie">
+        //<img src="x" onerror="fetch('accomodation.php', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: 'delete_property_id=5' })">
 
-if (!empty($_GET['property-star']) && $_GET['property-star'] > 0) {
-    $sql_filt .= " AND stars = ?";
-    $types .= "i";
-    $params[] = $_GET['property-star'];
-}
-
-if (!empty($_GET['catering'])) {
-    $sql_filt .= " AND meal_plan = ?";
-    $types .= "s";
-    $params[] = $_GET['catering'];
-}
-
-if (!empty($_GET['min_rating'])) {
-    $sql_filt .= " AND rating >= ?";
-    $types .= "d";
-    $params[] = $_GET['min_rating'];
-}
-
-if (!empty($_GET['property_type']) && is_array($_GET['property_type'])) {
-    $placeholders = implode(',', array_fill(0, count($_GET['property_type']), '?'));
-    $sql_filt .= " AND property_type IN ($placeholders)";
-    foreach ($_GET['property_type'] as $prop_type) {
+        $sql_filt .= " AND (city LIKE ?)";
         $types .= "s";
-        $params[] = $prop_type;
+        $params[] = '%' . $_GET['search'] . '%';
+    }
+
+    if (!empty($_GET['price-slider'])) {
+        $sql_filt .= " AND price <= ?";
+        $types .= "i";
+        $params[] = $_GET['price-slider'];
+    }
+
+    if (!empty($_GET['property-star']) && $_GET['property-star'] > 0) {
+        $sql_filt .= " AND stars = ?";
+        $types .= "i";
+        $params[] = $_GET['property-star'];
+    }
+
+    if (!empty($_GET['catering'])) {
+        $sql_filt .= " AND meal_plan = ?";
+        $types .= "s";
+        $params[] = $_GET['catering'];
+    }
+
+    if (!empty($_GET['min_rating'])) {
+        $sql_filt .= " AND rating >= ?";
+        $types .= "d";
+        $params[] = $_GET['min_rating'];
+    }
+
+    if (!empty($_GET['property_type']) && is_array($_GET['property_type'])) {
+        $placeholders = implode(',', array_fill(0, count($_GET['property_type']), '?'));
+        $sql_filt .= " AND property_type IN ($placeholders)";
+        foreach ($_GET['property_type'] as $prop_type) {
+            $types .= "s";
+            $params[] = $prop_type;
+        }
+    }
+
+    if (!empty($_GET['facilities']) && is_array($_GET['facilities'])) {
+        foreach ($_GET['facilities'] as $fac) {
+            $sql_filt .= " AND facilities_string LIKE ?";
+            $types .= "s";
+            $params[] = '%' . $fac . '%';
+        }
+    }
+
+    $sql_filt .= " ORDER BY id";
+    if ($conn instanceof PDO) {
+        $stmt = $conn->prepare($sql_filt);
+        $stmt->execute($params);
+        $db_locations_filtered = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } elseif ($conn instanceof mysqli) {
+        $db_locations_filtered = [];
+
+        if ($stmt = $conn->prepare($sql_filt)) {
+            if (!empty($params)) {
+                $stmt->bind_param($types, ...$params);
+            }
+            
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            while ($row = $result->fetch_assoc()) {
+                $db_locations_filtered[] = $row;
+            }
+            $stmt->close();
+        }
     }
 }
 
-if (!empty($_GET['facilities']) && is_array($_GET['facilities'])) {
-    foreach ($_GET['facilities'] as $fac) {
-        $sql_filt .= " AND facilities_string LIKE ?";
-        $types .= "s";
-        $params[] = '%' . $fac . '%';
-    }
-}
-
-$sql_filt .= " ORDER BY id";
-
-$db_locations_filtered = [];
-if ($conn instanceof PDO) {
-    $stmt = $conn->prepare($sql_filt);
-    $stmt->execute($params);
-    $db_locations_filtered = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} elseif ($conn instanceof mysqli) {
-    $db_locations_filtered = [];
-
-    if ($stmt = $conn->prepare($sql_filt)) {
-        if (!empty($params)) {
-            $stmt->bind_param($types, ...$params);
-        }
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        while ($row = $result->fetch_assoc()) {
-            $db_locations_filtered[] = $row;
-        }
-        $stmt->close();
-    } else {}
-}
-
-$json_locations_filtered = json_encode($db_locations_filtered);
+$json_locations_filtered = json_encode($db_locations_filtered, 
+        JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE
+    );
 ?>
 
 <!DOCTYPE html>
@@ -137,6 +193,9 @@ $json_locations_filtered = json_encode($db_locations_filtered);
                         <div class="filter-group">
                             <label for="search"><b>Destination:</b></label>
                             <input type="text" id="search" name="search" placeholder="Enter a destination" maxlength="30" value="<?= htmlspecialchars($val_search) ?>">
+                            <?php if (isset($errors['search'])): ?>
+                                <div class="error-text" style="display: block;"><?= $errors['search'] ?></div>
+                            <?php endif; ?>
                             <div id="search-error" class="error-text"></div>
                             <div id="autocomplete-list" class="autocomplete-items"></div>
                         </div>
@@ -145,21 +204,30 @@ $json_locations_filtered = json_encode($db_locations_filtered);
                             <div class="filter-group">
                                 <label for="check-in"><b>Check-in:</b></label>
                                 <input type="date" id="check-in" name="check-in" value="<?= htmlspecialchars($val_checkin) ?>">
+                                <?php if (isset($errors['checkin'])): ?>
+                                    <div class="error-text" style="display: block;"><?= $errors['checkin'] ?></div>
+                                <?php endif; ?>
                                 <div id="checkin-error" class="error-text"></div>
                             </div>
                             <div class="filter-group">
                                 <label for="check-out"><b>Check-out:</b></label>
                                 <input type="date" id="check-out" name="check-out" value="<?= htmlspecialchars($val_checkout) ?>">
+                                <?php if (isset($errors['checkout'])): ?>
+                                    <div class="error-text" style="display: block;"><?= $errors['checkout'] ?></div>
+                                <?php endif; ?>
                                 <div id="checkout-error" class="error-text"></div>
                             </div>
                         </div>
 
-                        <input type="submit" value="Search" class="btn-search">
+                        <input type="submit" value="Search" name="sidebar_search" class="btn-search">
 
                         <fieldset>
                             <legend>Price (0 - 2000 RON)</legend>
                             <input type="range" id="price-slider" name="price-slider" min="0" max="2000" step="5" value="<?= htmlspecialchars($val_price) ?>">
                             <input type="number" id="price" name="price" value="<?= htmlspecialchars($val_price) ?>" readonly>
+                            <?php if (isset($errors['price'])): ?>
+                                <div class="error-text" style="display: block;"><?= $errors['price'] ?></div>
+                            <?php endif; ?>
                         </fieldset>
 
                         <fieldset>
@@ -174,6 +242,9 @@ $json_locations_filtered = json_encode($db_locations_filtered);
                                 <label><input type="checkbox" id="hostel" name="property_type[]" value="Hostel" <?= checkPropertyType('Hostel', $val_types, $is_submitted) ?>> Hostel</label>
                                 <label><input type="checkbox" id="camping" name="property_type[]" value="Camping" <?= checkPropertyType('Camping', $val_types, $is_submitted) ?>> Camping</label>
                             </div>
+                            <?php if (isset($errors['property'])): ?>
+                                <div class="error-text" style="display: block;"><?= $errors['property'] ?></div>
+                            <?php endif; ?>
                             <div id="property-error" class="error-text"></div>
                         </fieldset>
 
@@ -181,6 +252,9 @@ $json_locations_filtered = json_encode($db_locations_filtered);
                             <legend>Meal plan</legend>
                             <label><input type="radio" name="catering" value="Self Catering" <?= $val_catering === 'Self Catering' ? 'checked' : '' ?>> Self Catering</label>
                             <label><input type="radio" name="catering" value="Breakfast Included" <?= $val_catering === 'Breakfast Included' ? 'checked' : '' ?>> Breakfast Included</label>
+                            <?php if (isset($errors['meal'])): ?>
+                                <div class="error-text" style="display: block;"><?= $errors['meal'] ?></div>
+                            <?php endif; ?>
                             <div id="meal-error" class="error-text"></div> </fieldset>
                         </fieldset>
 
@@ -216,6 +290,9 @@ $json_locations_filtered = json_encode($db_locations_filtered);
                                 <option value="bar" name="facilities[]" <?= in_array('bar', $val_facilities) ? 'selected' : '' ?>>Bar</option>
                                 <option value="pet-friendly" name="facilities[]" <?= in_array('pet-friendly', $val_facilities) ? 'selected' : '' ?>>Pet Friendly</option>
                             </select>
+                            <?php if (isset($errors['facilities'])): ?>
+                                <div class="error-text" style="display: block;"><?= $errors['facilities'] ?></div>
+                            <?php endif; ?>
                             <div id="facilities-error" class="error-text"></div>
                         </fieldset>
                     </form>

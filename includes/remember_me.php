@@ -38,19 +38,16 @@ function createRememberMe($conn, $user_id) {
     $expire_time = time() + 86400 * 30;
     $expires_at = date('Y-m-d H:i:s', $expire_time);
 
-    $sql = "INSERT INTO user_tokens (user_id, selector, hashed_validator, expires_at) VALUES (?, ?, ?, ?)";
-    
-    if ($conn instanceof PDO) {
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$user_id, $selector, $hashed_validator, $expires_at]);
-    } elseif ($conn instanceof mysqli) {
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("isss", $user_id, $selector, $hashed_validator, $expires_at);
-        $stmt->execute();
-        $stmt->close();
-    }
+    insertUserToken($conn, $user_id, $expires_at, $selector, $hashed_validator);
 
-    setcookie('remember_me', $token, $expire_time, "/", "", false, true);
+    setcookie('remember_me', $token, [
+        'expires' => $expire_time,
+        'path' => '/',
+        'domain' => '',
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Strict'
+    ]);
 }
 
 function validateRememberMe($conn) {
@@ -108,8 +105,15 @@ function clearRememberMe($conn) {
                 $stmt->close();
             }
         }
-
-        setcookie('remember_me', '', time() - 3600, "/");
+        
+        setcookie('remember_me', '', [
+            'expires'  => time() - 42000,
+            'path'     => '/',
+            'domain'   => '',
+            'secure'   => true,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
     }
 }
 ?>

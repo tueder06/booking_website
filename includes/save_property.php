@@ -11,6 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['submit-property'])) 
     exit;
 }
 
+if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+    http_response_code(403);
+    $_SESSION['error_message'] = "Session expired or action could not be validated. Please retry.";
+    header("Location: index.php"); 
+    exit;
+}
+
 function insertProperty($conn, $data) {
     $sql = "INSERT INTO accomodations (name, image_path, rating, city, distance, room_type, price, owner_id, property_type, stars, meal_plan, facilities_string) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -95,17 +102,17 @@ $action = $_POST['action'] ?? 'add';
 $property_id = $_POST['property_id'] ?? null;
 
 $data = [
-    'name' => trim(htmlspecialchars($_POST['name'] ?? '')),
-    'city' => trim(htmlspecialchars($_POST['city'] ?? '')),
-    'distance' => trim(htmlspecialchars($_POST['distance'] ?? '')),
-    'room_type' => trim(htmlspecialchars($_POST['room_type'] ?? '')),
-    'price' => (float)($_POST['price'] ?? 0),
+    'name' => trim($_POST['name'] ?? ''),
+    'city' => trim($_POST['city'] ?? ''),
+    'distance' => trim($_POST['distance'] ?? ''),
+    'room_type' => trim($_POST['room_type'] ?? ''),
+    'price' => (int)($_POST['price'] ?? 0),
     'rating' => (float)($_POST['rating'] ?? 0),
-    'property_type' => trim(htmlspecialchars($_POST['property_type'] ?? '')),
+    'property_type' => trim($_POST['property_type'] ?? ''),
     'stars' => (int)($_POST['stars'] ?? 0),
-    'meal_plan' => trim(htmlspecialchars($_POST['meal_plan'] ?? '')),
-    'owner_id' => $owner_id,
-    'id' => $property_id
+    'meal_plan' => trim($_POST['meal_plan'] ?? ''),
+    'owner_id' => (int)$owner_id,
+    'id' => (int)$property_id
 ];
 
 $facilities_raw = $_POST['facilities'] ?? [];
@@ -114,11 +121,13 @@ $data['facilities'] = implode(',', $facilities_safe);
 
 $data['image_path'] = null;
 $hasNewImage = false;
+$uploaded_image_path = null;
 
 if (isset($_FILES['property-image']) && $_FILES['property-image']['error'] === UPLOAD_ERR_OK) {
     $file_tmp = $_FILES['property-image']['tmp_name'];
     $file_name = $_FILES['property-image']['name'];
     $file_size = $_FILES['property-image']['size'];
+    
     $file_type = mime_content_type($file_tmp); 
     
     $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
@@ -132,20 +141,76 @@ if (isset($_FILES['property-image']) && $_FILES['property-image']['error'] === U
         $dest_path = $upload_dir . $new_filename;
         $db_save_path = 'uploads/properties/' . $new_filename;
 
-        if (move_uploaded_file($file_tmp, $dest_path)) {
-            $data['image_path'] = $db_save_path;
-            $hasNewImage = true;
+        $image_resource = false;
+        switch ($file_type) {
+            case 'image/jpeg':
+                $image_resource = @imagecreatefromjpeg($file_tmp);
+                break;
+            case 'image/png':
+                $image_resource = @imagecreatefrompng($file_tmp);
+                break;
+            case 'image/webp':
+                $image_resource = @imagecreatefromwebp($file_tmp);
+                break;
+        }
+
+        if ($image_resource !== false) {
+            $save_success = false;
+            
+            switch ($file_type) {
+                case 'image/jpeg':
+                    $save_success = imagejpeg($image_resource, $dest_path, 85);
+                    break;
+                case 'image/png':
+                    $save_success = imagepng($image_resource, $dest_path, 8);
+                    break;
+                case 'image/webp':
+                    $save_success = imagewebp($image_resource, $dest_path, 85); 
+                    break;
+            }
+            imagedestroy($image_resource);
+            if ($save_success) {
+                $data['image_path'] = $db_save_path;
+                $uploaded_image_path = $dest_path;
+                $hasNewImage = true;
+            } else {
+                $_SESSION['error_message'] = "Could not store file.";
+                header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
+                exit;
+            }
         } else {
-            $_SESSION['error_msg'] = "Could not move file to $upload_dir. Check folder permissions.";
+            $_SESSION['error_message'] = "Uploaded file is either corrupted or contains malicious data.";
             header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
             exit;
         }
+
     } else {
-        $_SESSION['error_msg'] = "Invalid file format or file too large. Max 2MB, JPG/PNG/WEBP only.";
+        $_SESSION['error_message'] = "Invalid file format or file too large. Max 2MB, JPG/PNG/WEBP only.";
         header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
         exit;
     }
 }
+
+# compromised version
+// if (isset($_FILES['property-image']) && $_FILES['property-image']['error'] === UPLOAD_ERR_OK) {
+//     $file_tmp = $_FILES['property-image']['tmp_name'];
+//     $file_name = $_FILES['property-image']['name']; 
+    
+//     $upload_dir = '../uploads/properties/'; 
+
+//     $dest_path = $upload_dir . $file_name;
+//     $db_save_path = 'uploads/properties/' . $file_name;
+
+//     if (move_uploaded_file($file_tmp, $dest_path)) {
+//         $data['image_path'] = $db_save_path;
+//         $uploaded_image_path = $dest_path;
+//         $hasNewImage = true;
+//     } else {
+//         $_SESSION['error_message'] = "Could not move file to $upload_dir. Check folder permissions.";
+//         header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
+//         exit;
+//     }
+// }
 
 try {
     if ($action === 'add') {
@@ -188,12 +253,18 @@ try {
         header("Location: ../accomodations.php?success=1");
         exit;
     } else {
-        $_SESSION['error_msg'] = "Error saving property to the database. Please try again.";
+        if ($hasNewImage && isset($uploaded_image_path)) {
+            if (file_exists($uploaded_image_path)) {
+                unlink($uploaded_image_path);
+            }
+        }
+        $_SESSION['error_message'] = "Error saving property to the database. Please try again.";
         header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
         exit;
     }
 } catch (Exception $e) {
-    $_SESSION['error_msg'] = "Database error: " . $e->getMessage();
+    error_log("DB Insert/Update Error: " . $e->getMessage());
+    $_SESSION['error_message'] = "An error occurred while saving the property. Please try again.";
     header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
     exit;
 }

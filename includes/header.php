@@ -1,9 +1,3 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-
 <input type="checkbox" id="menu-toggle" class="menu-checkbox">
 <label for="menu-toggle" class="side-menu-icon">☰</label>
 <header class="site-header">
@@ -16,7 +10,12 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <?php if (isset($_SESSION['user_id'])): ?>
                 <li><a href="profile.php" class="auth-link">My Account</a></li>
-                <li><a href="logout.php" class="auth-link">Log out</a></li>
+                <li>
+                    <form action="logout.php" method="POST" class="logout-form">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        <button type="submit" class="auth-link">Log out</button>
+                    </form>
+                </li>
             <?php else: ?>
                 <li><a href="login.php" class="auth-link">Log in</a></li>
                 <li><a href="sign-up.php" class="auth-link">Sign up</a></li>

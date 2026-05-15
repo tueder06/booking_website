@@ -90,9 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (file.size > maxSize) {
                         isValid = showError(propertyImage, 'property-image-error', 'The image must be smaller than 2MB.') && isValid;
-                    } else if (!allowedTypes.includes(file.type)) {
-                        isValid = showError(propertyImage, 'property-image-error', 'Only JPG, PNG, and WEBP formats are allowed.') && isValid;
-                    }
+                    } 
+                    // else if (!allowedTypes.includes(file.type)) {
+                    //    isValid = showError(propertyImage, 'property-image-error', 'Only JPG, PNG, and WEBP formats are allowed.') && isValid;
+                    // }
                 }
             }
 
