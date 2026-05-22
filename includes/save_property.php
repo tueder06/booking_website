@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['submit-property'])) 
 if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
     http_response_code(403);
     $_SESSION['error_message'] = "Session expired or action could not be validated. Please retry.";
-    header("Location: index.php"); 
+    header("Location: ../index.php"); 
     exit;
 }
 
@@ -190,27 +190,6 @@ if (isset($_FILES['property-image']) && $_FILES['property-image']['error'] === U
         exit;
     }
 }
-
-# compromised version
-// if (isset($_FILES['property-image']) && $_FILES['property-image']['error'] === UPLOAD_ERR_OK) {
-//     $file_tmp = $_FILES['property-image']['tmp_name'];
-//     $file_name = $_FILES['property-image']['name']; 
-    
-//     $upload_dir = '../uploads/properties/'; 
-
-//     $dest_path = $upload_dir . $file_name;
-//     $db_save_path = 'uploads/properties/' . $file_name;
-
-//     if (move_uploaded_file($file_tmp, $dest_path)) {
-//         $data['image_path'] = $db_save_path;
-//         $uploaded_image_path = $dest_path;
-//         $hasNewImage = true;
-//     } else {
-//         $_SESSION['error_message'] = "Could not move file to $upload_dir. Check folder permissions.";
-//         header("Location: ../property_form.php?action=" . $action . ($property_id ? "&id=" . $property_id : ""));
-//         exit;
-//     }
-// }
 
 try {
     if ($action === 'add') {

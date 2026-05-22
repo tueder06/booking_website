@@ -236,7 +236,7 @@
     font-weight: bold;
 }
 
-.add-to-bag-btn {
+.add-to-bag-btn, .book-now-btn {
     padding: 8px 15px;
     background-color: #f97316;
     color: white;
@@ -247,7 +247,7 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.add-to-bag-btn:hover {
+.add-to-bag-btn:hover, .book-now-btn:hover {
     background-color: #ea580c;
     transform: translateY(-2px);
 }
@@ -337,7 +337,7 @@
         align-items: stretch;
     }
     
-    .add-to-bag-btn {
+    .add-to-bag-btn, .book-now-btn {
         width: 100%;
         padding: 12px;
     }
@@ -345,4 +345,74 @@
     .price-display {
         text-align: right;
     }
+}
+
+#locations-error-container {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #f87171;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.1);
+}
+
+#locations-error-container p {
+    margin-bottom: 8px;
+}
+
+#locations-error-container ul {
+    list-style-position: inside;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 0.95rem;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e7e7e7;
+    width: 100%;
+}
+
+.pagination-controls .btn {
+    background-color: var(--brand-pop);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination-controls .btn:hover:not(:disabled) {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.pagination-controls .btn:disabled {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+#page-indicator {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    min-width: 90px;
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 8px 15px;
+    border-radius: 20px;
 }

@@ -8,39 +8,59 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $user_data = [];
+$system_error = "";
 
-$sql = "SELECT email, first_name, last_name, birthday, phone_number, country, city, preferences FROM users WHERE id = ?";
+try {
+    $sql = "SELECT email, first_name, last_name, birthday, phone_number, country, city, preferences FROM users WHERE id = ?";
 
-if ($conn instanceof PDO) {
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$user_id]);
-    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
-} elseif ($conn instanceof mysqli) {
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 1) {
-            $user_data = $result->fetch_assoc();
+    if ($conn instanceof PDO) {
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$user_id]);
+        $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+    } elseif ($conn instanceof mysqli) {
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 1) {
+                $user_data = $result->fetch_assoc();
+            }
+            $stmt->close();
         }
-        $stmt->close();
     }
-}
 
-if (!$user_data) {
-    session_destroy();
-    header("Location: login.php");
-    exit;
-}
+    if (!$user_data) {
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
 
-$email = htmlspecialchars($user_data['email'] ?? '');
-$firstname = htmlspecialchars($user_data['first_name'] ?? '');
-$lastname = htmlspecialchars($user_data['last_name'] ?? '');
-$birthdate = htmlspecialchars($user_data['birthday'] ?? '');
-$phone = htmlspecialchars($user_data['phone_number'] ?? '');
-$country = htmlspecialchars($user_data['country'] ?? '');
-$city = htmlspecialchars($user_data['city'] ?? '');
-$preferences = htmlspecialchars($user_data['preferences'] ?? '');
+    $email = htmlspecialchars($user_data['email'] ?? '');
+    $firstname = htmlspecialchars($user_data['first_name'] ?? '');
+    $lastname = htmlspecialchars($user_data['last_name'] ?? '');
+    $birthdate = htmlspecialchars($user_data['birthday'] ?? '');
+    $phone = htmlspecialchars($user_data['phone_number'] ?? '');
+    $country = htmlspecialchars($user_data['country'] ?? '');
+    $city = htmlspecialchars($user_data['city'] ?? '');
+    $preferences = htmlspecialchars($user_data['preferences'] ?? '');
+
+    $res_query = "SELECT r.id, a.name AS hotel_name, a.city, r.check_in, r.check_out, a.image_path as image, r.status
+                    FROM reservations r
+                    JOIN accomodations a ON r.accommodation_id = a.id
+                    WHERE r.user_id = ? 
+                    AND r.check_in > CURDATE()
+                    ORDER BY r.check_in ASC";
+
+    $res_stmt = $conn->prepare($res_query);
+    $res_stmt->execute([$user_id]);
+    $future_reservations = $res_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $initial_selected_id = !empty($future_reservations) ? $future_reservations[0]['id'] : '';
+
+} catch (PDOException $e) {
+    error_log("Database Error in profile.php: " . $e->getMessage());
+    $system_error = "We're experiencing temporary difficulties loading all your profile details. Please try refreshing the page later.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,13 +72,20 @@ $preferences = htmlspecialchars($user_data['preferences'] ?? '');
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/profile.css">
     <script type="module" src="js/profile.js"></script>
+    <script type="module" src="js/get-reservation.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="module" src="jquery/profile.js"></script> -->
+    <script type="module" src="jquery/get-reservation.js"></script> -->
     <title>Profile</title>
 </head>
 <body>
     <?php require_once 'includes/header.php'; ?>
     <main class="dashboard-layout container">
+        <?php if (!empty($system_error)): ?>
+            <div style="background-color: #ffe6e6; color: #cc0000; padding: 15px; border-radius: 8px; border: 1px solid #cc0000; margin-bottom: 20px; font-weight: bold; text-align: center;">
+                <?= htmlspecialchars($system_error) ?>
+            </div>
+        <?php endif; ?>
+
         <section class="profile-content">
             <form class="profile-form">
                 
@@ -162,12 +189,12 @@ $preferences = htmlspecialchars($user_data['preferences'] ?? '');
             <div class="stat-card">
                 <h3>Total Bookings</h3>
                 <p class="stat-value">14</p>
-                <a href="" class="stat-link">View Details &rarr;</a>
+                <a href="#" class="stat-link">View Details &rarr;</a>
             </div>
             
             <div class="stat-card">
                 <h3>Upcoming Trips</h3>
-                <p class="stat-value">2</p>
+                <p class="stat-value"><?= count($future_reservations) ?></p>
             </div>
             
             <div class="stat-card accent">
@@ -179,77 +206,76 @@ $preferences = htmlspecialchars($user_data['preferences'] ?? '');
         <section id="upcoming-trips" class="dashboard-trips-section">
             <h2>Your Next Adventures</h2>
             
-            <div class="trip-list">
-                <article class="trip-card">
-                    <div class="trip-image">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/830098191.jpg?k=0fa0f8de45ed0396c3c7492daa3d5ebdd8a4f10456bb211f54aa70fbdb9b575c&o=" alt="Constanta Apartment">
-                    </div>
-                    <div class="trip-details">
-                        <div class="trip-header">
-                            <div>
-                                <h3>Seaside Serenity Apartments</h3>
-                                <p class="trip-location">Constanța, Romania</p>
-                            </div>
-                            <span class="status-badge">Confirmed</span>
-                        </div>
-                        
-                        <div class="trip-dates">
-                            <div class="date-box">
-                                <span class="date-label">Check-in</span>
-                                <span class="date-value">15 Jul 2026</span>
-                            </div>
-                            <div class="date-box">
-                                <span class="date-label">Check-out</span>
-                                <span class="date-value">22 Jul 2026</span>
-                            </div>
-                            <div class="date-box">
-                                <span class="date-label">Booking Ref</span>
-                                <span class="date-value">#BK-789012</span>
-                            </div>
-                        </div>
-                        
-                        <div class="trip-actions">
-                            <button class="btn-outline">Cancel Booking</button>
-                            <button class="btn-primary">Manage Trip</button>
-                        </div>
-                    </div>
-                </article>
+            <?php if (empty($future_reservations)): ?>
+                <div class="empty-trips-message">
+                    <p>You have no upcoming trips. Time to plan a new adventure!</p>
+                </div>
+            <?php else: ?>
+                
+                <div class="reservation-selector-container">
+                    <label for="reservation-selector">Select a trip to manage:</label>
+                    <select id="reservation-selector" class="form-select">
+                        <?php foreach ($future_reservations as $res): ?>
+                            <?php 
+                            $display_in = date('d M Y', strtotime($res['check_in']));
+                            $display_out = date('d M Y', strtotime($res['check_out']));
+                            $display_text = htmlspecialchars($res['hotel_name'] . " (" . $display_in . " - " . $display_out . ")");
+                            ?>
+                            <option value="<?= $res['id'] ?>">
+                                <?= $display_text ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                <article class="trip-card">
-                    <div class="trip-image">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/477203913.jpg?k=70150cc6d1e056b8e5795b7d1ead266542be64731b4cda55b3651c7641104fb6&o=" alt="Mountain Lodge">
-                    </div>
-                    <div class="trip-details">
-                        <div class="trip-header">
-                            <div>
-                                <h3>Mountainview Retreat Lodge</h3>
-                                <p class="trip-location">Șirnea, Romania</p>
-                            </div>
-                            <span class="status-badge">Confirmed</span>
+                <div id="reservation-alerts" class="alert-box"></div>
+
+                <form id="manage-trip-form" class="trip-list">
+                    <input type="hidden" id="csrf-token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+                    <input type="hidden" id="edit-res-id" value="<?= $initial_selected_id ?>">
+                    
+                    <article class="trip-card">
+                        <div class="trip-image">
+                            <img id="edit-hotel-img" src="" alt="Hotel">
                         </div>
                         
-                        <div class="trip-dates">
-                            <div class="date-box">
-                                <span class="date-label">Check-in</span>
-                                <span class="date-value">10 Oct 2026</span>
+                        <div class="trip-details">
+                            <div class="trip-header">
+                                <div>
+                                    <h3 id="edit-hotel-name">Loading...</h3>
+                                    <p class="trip-location" id="edit-hotel-city">Loading...</p>
+                                </div>
+                                <span id="status" class="status-badge">Loading...</span>
                             </div>
-                            <div class="date-box">
-                                <span class="date-label">Check-out</span>
-                                <span class="date-value">14 Oct 2026</span>
+                            
+                            <div class="trip-dates">
+                                <div class="date-box">
+                                    <span class="date-label">Check-in</span>
+                                    <input type="date" id="edit-checkin" class="form-input-date" required>
+                                </div>
+                                
+                                <div class="date-box">
+                                    <span class="date-label">Check-out</span>
+                                    <input type="date" id="edit-checkout" class="form-input-date" required>
+                                </div>
+                                
+                                <div class="date-box checkbox-wrapper">
+                                    <input type="checkbox" id="edit-toggle-box">
+                                    <label id="edit-toggle-label" for="edit-toggle-box">Cancel Booking</label>
+                                </div>
                             </div>
-                            <div class="date-box">
-                                <span class="date-label">Booking Ref</span>
-                                <span class="date-value">#BK-992341</span>
+                            
+                            <div class="trip-actions">
+                                <span id="edit-total-price" class="total-price-tag">Total: 0.00 RON</span>
+                                <button type="submit" id="btn-save-trip" class="btn-primary dynamic-save-btn" disabled>
+                                    Save Changes
+                                </button>
                             </div>
                         </div>
-                        
-                        <div class="trip-actions">
-                            <button class="btn-outline">Cancel Booking</button>
-                            <button class="btn-primary">Manage Trip</button>
-                        </div>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </form>
+
+            <?php endif; ?>
         </section>
     </main>
     <?php require_once 'includes/footer.html'; ?>

@@ -23,11 +23,9 @@ if (isset($_SESSION['error_message'])) {
         const discoverLocations = <?= $json_locations ?>;
     </script>
     <script type="module" src="js/booking-forms.js"></script>
-    <script type="module" src="js/locations.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="module" src="jquery/carousel.js"></script>
-    <script type="module" src="jquery/booking-forms.js"></script>
-    <script type="module" src="jquery/locations.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="module" src="jquery/locations.js"></script>
+    <!-- <script type="module" src="js/locations.js"></script> -->
     <title> Booking </title>
 </head>
 <body>
@@ -44,7 +42,7 @@ if (isset($_SESSION['error_message'])) {
 
         <section class="search-section">
             <h2>Find Your Next Adventure</h2>
-            <form id="home-form" action="discover.php">
+            <form id="home-form" action="discover.php" novalidate>
                 <div class="filter-group" style="position: relative;">
                     <label for="search"><b>Search for destinations:</b></label><br>
                     <input type="text" id="search" name="search" placeholder="Enter a destination" maxlength="30" size="30" autocomplete="off">

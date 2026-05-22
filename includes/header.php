@@ -25,7 +25,7 @@
     <nav class="header-bottom">
         <ul class="main-nav">
             <li><a class="nav-link" href="index.php"><span class="menu-icon home-icon"></span>Home</a></li>
-            <li><a class="nav-link" href="discover.php"><span class="menu-icon discover-icon"></span>Discover</a></li>
+            <li><a class="nav-link" href="discover1.php"><span class="menu-icon discover-icon"></span>Discover</a></li>
             <li><a class="nav-link" href="compare.php"><span class="menu-icon compare-icon"></span>Info</a></li>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'owner'): ?>
                 <li><a class="nav-link" href="accomodations.php"><span class="menu-icon properties-icon"></span>My Properties</a></li>

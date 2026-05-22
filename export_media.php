@@ -26,7 +26,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'owner') {
 //         die("Eroare: Fișierul nu a fost găsit pe server.");
 //     }
 // }
-#http://localhost/booking_website/export_media.php?file=../../includes/init.php
 
 if (isset($_GET['file'])) {
     $file_name = basename($_GET['file']);

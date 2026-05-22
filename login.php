@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($user_data && password_verify($password, $user_data['password'])) {
                 session_regenerate_id(true);
+                
                 $_SESSION['user_id'] = $user_data['id'];
                 $_SESSION['first_name'] = $user_data['first_name'];
                 $_SESSION['role'] = $user_data['role'];

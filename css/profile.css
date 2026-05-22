@@ -173,6 +173,34 @@
     overflow-y: auto;
 }
 
+.input-row select {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 2px solid #eef2f5;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-row select:disabled {
+    color: #555;
+    border-color: transparent;
+    background-color: transparent;
+    appearance: none;
+    -moz-appearance: none;
+}
+
+.input-row select:focus:not(:disabled) {
+    outline: none;
+    border-color: var(--brand-accent);
+    background-color: var(--white);
+}
+
 .btn-icon {
     width: 45px; 
     height: 45px; 
@@ -191,6 +219,7 @@
     transform: scale(1.1); 
 }
 
+
 .dashboard-trips-section h2 {
     color: var(--brand-main);
     font-size: 2rem;
@@ -198,6 +227,56 @@
     border-bottom: 2px solid var(--brand-pop);
     padding-bottom: 0.5rem;
     display: inline-block;
+}
+
+.empty-trips-message {
+    padding: 30px 20px;
+    background: var(--white);
+    border-radius: 12px;
+    text-align: center;
+    color: #666;
+    border: 1px dashed rgba(0,0,0,0.15);
+    font-size: 1.1rem;
+}
+
+.reservation-selector-container {
+    margin-bottom: 25px;
+}
+
+.reservation-selector-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--brand-main);
+}
+
+.form-select {
+    width: 100%;
+    max-width: 450px;
+    padding: 12px 15px;
+    border: 2px solid #eef2f5;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #f8fafc;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+    background-color: var(--white);
+}
+
+.alert-box {
+    margin-bottom: 1.5rem;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: none;
+    font-weight: bold;
+    font-size: 0.95rem;
 }
 
 .trip-list { 
@@ -209,10 +288,12 @@
 .trip-card {
     display: flex;
     flex-direction: row;
+    height: 320px;
+    overflow: hidden;
+    align-items: stretch;
     background: var(--white);
     border: 1px solid rgba(0,0,0,0.08);
     border-radius: 12px;
-    overflow: hidden;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     transition: all 0.3s ease;
     min-height: 200px;
@@ -261,14 +342,22 @@
 }
 
 .status-badge {
-    background-color: rgba(99, 102, 241, 0.1);
-    color: var(--brand-accent);
     padding: 6px 14px; 
     border-radius: 20px; 
     font-size: 0.85rem; 
     font-weight: bold; 
     text-transform: uppercase; 
     letter-spacing: 1px;
+}
+
+.confirmed {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--brand-accent);
+}
+
+.cancelled {
+    background-color: rgba(228, 130, 158, 0.1);
+    color: #dc3545;
 }
 
 .trip-dates {
@@ -279,6 +368,8 @@
     border-radius: 8px; 
     margin-bottom: 1.5rem; 
     border: 1px solid #eef2f5;
+    align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .date-box { 
@@ -290,20 +381,79 @@
     font-size: 0.8rem; 
     color: #888; 
     text-transform: uppercase; 
-    margin-bottom: 4px; 
+    margin-bottom: 6px; 
+    font-weight: bold;
 }
 
-.date-value { 
-    font-weight: bold; 
-    color: var(--brand-main); 
-    font-size: 1.05rem; 
+.form-input-date {
+    padding: 10px 12px;
+    border: 2px solid #eef2f5;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--brand-main);
+    background-color: var(--white);
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
+
+.form-input-date:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+}
+
+.checkbox-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    transform: scale(1.4);
+    cursor: pointer;
+    margin: 0;
+    accent-color: #dc3545;
+}
+
+.checkbox-wrapper input[type="checkbox"].confirm {
+    accent-color: var(--brand-accent);
+}
+
+.checkbox-wrapper input[type="checkbox"].cancel {
+    accent-color: #dc3545;
+}
+
+.checkbox-wrapper label {
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.checkbox-wrapper label.confirm {
+    color: var(--brand-accent);
+}
+
+.checkbox-wrapper label.cancel {
+    color: #dc3545;
+}
+
 
 .trip-actions { 
     display: flex; 
-    justify-content: flex-end; 
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem; 
     margin-top: auto; 
+    border-top: 1px solid #eef2f5;
+    padding-top: 1.2rem;
+}
+
+.total-price-tag {
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: var(--brand-main);
 }
 
 .btn-outline {
@@ -333,11 +483,20 @@
     transition: all 0.2s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
     background: #ea580c;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
 }
+
+.dynamic-save-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #a0a0a0;
+    transform: none;
+    box-shadow: none;
+}
+
 
 @media (max-width: 1024px) {
     .dashboard-layout {
@@ -374,7 +533,9 @@
     .trip-actions { 
         flex-direction: column; 
         width: 100%; 
-        gap: 10px;
+        gap: 15px;
+        align-items: stretch;
+        text-align: center;
     }
     
     .btn-outline, .btn-primary { 
@@ -406,45 +567,27 @@
     .status-badge { 
         margin-top: 10px; 
     }
+    
     .trip-dates { 
         flex-direction: column; 
+        align-items: stretch;
         gap: 1rem; 
         padding: 15px; 
     }
+    
+    .checkbox-wrapper {
+        padding-bottom: 0;
+        margin-top: 10px;
+    }
+
     .trip-actions {
         flex-direction: column;
         width: 100%;
+        gap: 15px;
     }
     .btn-outline, .btn-primary {
         width: 100%;
         text-align: center;
+        padding: 14px;
     }
-}
-
-.input-row select {
-    flex-grow: 1;
-    padding: 12px 15px;
-    border: 2px solid #eef2f5;
-    background-color: #f8fafc;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.input-row select:disabled {
-    color: #555;
-    border-color: transparent;
-    background-color: transparent;
-    appearance: none;
-    -moz-appearance: none;
-}
-
-.input-row select:focus:not(:disabled) {
-    outline: none;
-    border-color: var(--brand-accent);
-    background-color: var(--white);
 }
